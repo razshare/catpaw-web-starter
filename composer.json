@@ -13,7 +13,8 @@
     "action:test": [],
     "test": [],
     "start": "XDEBUG_MODE='debug' php ./bin/start -esrc/main.php -lsrc/lib/ -i",
-    "watch": "XDEBUG_MODE='debug' php ./bin/start -esrc/main.php -lsrc/lib/ -i -w"
+    "watch": "XDEBUG_MODE='debug' php ./bin/start -esrc/main.php -lsrc/lib/ -i -w",
+    "build": "XDEBUG_MODE='off' php -dphar.readonly=0 ./bin/start -ebin/build"
   },
   "authors": [
     {
