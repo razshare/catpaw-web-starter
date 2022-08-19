@@ -1,0 +1,30 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Listen (paw)",
+            "type": "php",
+            "request": "launch",
+            "port": 9003
+        },
+        {
+            "name": "Main (paw)",
+            "type": "php",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/start",
+            "cwd": "${workspaceFolder}",
+            "args": [
+                "-esrc/main.php",
+                "-lsrc/lib/"
+            ],
+            "runtimeArgs": [
+                "-dxdebug.start_with_request=yes",
+                "-dxdebug.mode=debug",
+            ],
+            "env": {
+                "XDEBUG_MODE": "debug",
+                "XDEBUG_CONFIG": "client_port=${port}"
+            }
+        }
+    ]
+}
