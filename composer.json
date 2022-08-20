@@ -12,8 +12,8 @@
     ],
     "action:test": [],
     "test": [],
-    "start": "XDEBUG_MODE='debug' php ./bin/start -e./src/main.php -lsrc/lib/ -i",
-    "watch": "XDEBUG_MODE='debug' php ./bin/start -e./src/main.php -lsrc/lib/ -i -w",
+    "start": "XDEBUG_MODE='debug' php ./bin/start -e./src/main.php -l./src/lib/ -i",
+    "watch": "XDEBUG_MODE='debug' php ./bin/start -e./src/main.php -l./src/lib/ -i -w",
     "build": "XDEBUG_MODE='off' php -dphar.readonly=0 ./bin/start -e./bin/build"
   },
   "authors": [
