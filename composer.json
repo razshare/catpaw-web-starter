@@ -1,48 +1,48 @@
 {
-    "name": "catpaw\/web-starter",
+    "name": "catpaw/web-starter",
     "type": "project",
     "description": "A php CatPaw web server starter template",
-    "homepage": "https:\/\/github.com\/tncrazvan\/catpaw-starter",
+    "homepage": "https://github.com/tncrazvan/catpaw-starter",
     "license": "MIT",
     "scripts": {
         "load": "XDEBUG_MODE='off' composer dump-autoload -o",
         "fix": [
-            "XDEBUG_MODE='off' php .\/vendor\/bin\/php-cs-fixer fix src",
-            "XDEBUG_MODE='off' php .\/vendor\/bin\/php-cs-fixer fix tests"
+            "XDEBUG_MODE='off' php ./vendor/bin/php-cs-fixer fix src",
+            "XDEBUG_MODE='off' php ./vendor/bin/php-cs-fixer fix tests"
         ],
         "action:test": [],
         "test": [],
-        "start": "XDEBUG_MODE='debug' php .\/bin\/start -e.\/src\/main.php -l.\/src\/lib\/ -i",
-        "watch": "XDEBUG_MODE='debug' php .\/bin\/start -e.\/src\/main.php -l.\/src\/lib\/ -i -w",
-        "build": "XDEBUG_MODE='off' php -dphar.readonly=0 .\/bin\/start -e.\/bin\/build"
+        "start": "XDEBUG_MODE='debug' php ./bin/start -e./src/main.php -l./src/lib/ -i",
+        "watch": "XDEBUG_MODE='debug' php ./bin/start -e./src/main.php -l./src/lib/ -i -w",
+        "build": "XDEBUG_MODE='off' php -dphar.readonly=0 ./bin/start -e./bin/build"
     },
     "authors": [
         {
             "name": "Razvan Tanase",
             "email": "tangent.jotey@gmail.com",
-            "homepage": "https:\/\/github.com\/tncrazvan",
+            "homepage": "https://github.com/tncrazvan",
             "role": "Developer"
         }
     ],
     "autoload": {
         "psr-4": {
-            "App\\": "src\/lib\/"
+            "App\\": "src/lib/"
         }
     },
     "require": {
         "php": "^8.1",
-        "catpaw\/core": "^0.2",
-        "amphp\/amp": "^2.6",
-        "amphp\/file": "^2.0",
-        "catpaw\/web": "^0.2.32"
+        "catpaw/core": "^0.2",
+        "amphp/amp": "^2.6",
+        "amphp/file": "^2.0",
+        "catpaw/web": "^0.2.32"
     },
     "autoload-dev": {
-        "Tests\\": "tests\/"
+        "Tests\\": "tests/"
     },
     "require-dev": {
-        "friendsofphp\/php-cs-fixer": "^3.8",
-        "phpunit\/phpunit": "^9",
-        "vimeo\/psalm": "^4.23"
+        "friendsofphp/php-cs-fixer": "^3.8",
+        "phpunit/phpunit": "^9",
+        "vimeo/psalm": "^4.23"
     },
     "config": {
         "preferred-install": "dist",
