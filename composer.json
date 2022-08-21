@@ -33,7 +33,8 @@
     "php": "^8.1",
     "catpaw/core": "^0.2",
     "amphp/amp": "^2.6",
-    "amphp/file": "^2.0"
+    "amphp/file": "^2.0",
+    "catpaw/web": "^0.2.32"
   },
   "autoload-dev": {
     "Tests\\": "tests/"
