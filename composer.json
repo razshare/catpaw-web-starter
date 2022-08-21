@@ -1,7 +1,7 @@
 {
-  "name": "catpaw/starter",
+  "name": "catpaw/web-starter",
   "type": "project",
-  "description": "A php CatPaw starter template",
+  "description": "A php CatPaw web server starter template",
   "homepage": "https://github.com/tncrazvan/catpaw-starter",
   "license": "MIT",
   "scripts": {
