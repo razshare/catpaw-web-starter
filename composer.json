@@ -37,7 +37,9 @@
         "catpaw/web": "^0.4"
     },
     "autoload-dev": {
-        "Tests\\": "tests/"
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.8",
