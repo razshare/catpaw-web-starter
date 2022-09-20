@@ -1,10 +1,27 @@
 <?php
 
+use CatPaw\Web\Attributes\Param;
+use CatPaw\Web\Attributes\ProducedResponse;
+use CatPaw\Web\Attributes\Produces;
 use CatPaw\Web\Attributes\StartWebServer;
+use CatPaw\Web\Services\OpenAPIService;
 use CatPaw\Web\Utilities\Route;
 
 #[StartWebServer]
 function main() {
-    Route::get("/hello", fn() => "hello world");
+    // Route::get(
+    //     '/test/{value}',
+    //     #[Produces("text/plain", new ProducedResponse(example:[
+    //         "test" => "test"
+    //     ]))]
+    //     function(
+    //         #[Param(example:'test')] string $value
+    //     ) {
+    //         return "this is a test and the value is: $value";
+    //     }
+    // );
+    
+
+    Route::get("/openapi", fn(OpenAPIService $oa) => $oa->getData());
     echo Route::describe().PHP_EOL;
 }
