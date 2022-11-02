@@ -8,6 +8,6 @@ use CatPaw\Web\Utilities\Route;
 #[Environment]
 #[StartWebServer]
 function main() {
-    Route::get("/openapi", fn(OpenAPIService $oa) => $oa->getData());
+    Route::get("/openapi", fn (OpenAPIService $oa) => $oa->getData());
     echo Route::describe().PHP_EOL;
 }
