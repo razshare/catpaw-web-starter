@@ -15,10 +15,13 @@
         "start": "php -dxdebug.mode=off ./bin/start --entry='./src/main.php' --libraries='./src/lib/' --info",
         "debug": "php -dxdebug.mode=debug -dxdebug.start_with_request=yes ./bin/start --entry='./src/main.php' --libraries='./src/lib/' --info",
         "watch": "php -dxdebug.mode=debug -dxdebug.start_with_request=yes ./bin/start --entry='./src/main.php' --libraries='./src/lib/' --resources='./resources/' --info --watch",
+        "product": "php -dxdebug.mode=off -dxdebug.start_with_request=no -dphar.readonly=0 ./product.phar --build-config",
         "build": "php -dxdebug.mode=off -dxdebug.start_with_request=no -dphar.readonly=0 ./product.phar --build-config --build",
-        "post-autoload-dump": [
-            "[ ! -f product.phar ] && wget https://github.com/tncrazvan/catpaw-dev-tools/releases/download/0.4.167/product.phar || echo \"product.phar found.\n\"",
-            "php product.phar --extensions"
+        "download:product": "[ ! -f product.phar ] && wget https://github.com/tncrazvan/catpaw-dev-tools/releases/download/0.4.167/product.phar || echo \"product.phar found.\n\"",
+        "edit:extensions": "@download:product && php product.phar --extensions",
+        "post-create-project-cmd": [
+            "@download:product",
+            "@edit:extensions"
         ]
     },
     "authors": [
