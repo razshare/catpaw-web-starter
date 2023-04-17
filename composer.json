@@ -17,7 +17,7 @@
         "watch": "php -dxdebug.mode=debug -dxdebug.start_with_request=yes ./bin/start --entry='./src/main.php' --libraries='./src/lib/' --resources='./resources/' --info --watch",
         "build": "php -dxdebug.mode=off -dxdebug.start_with_request=no -dphar.readonly=0 ./product.phar --build-config --build",
         "post-autoload-dump": [
-            "[ ! -f product.phar ] && wget https://github.com/tncrazvan/catpaw-dev-tools/releases/download/0.4.132/product.phar || echo \"product.phar found.\n\""
+            "[ ! -f product.phar ] && wget https://github.com/tncrazvan/catpaw-dev-tools/releases/download/0.4.167/product.phar || echo \"product.phar found.\n\""
         ]
     },
     "authors": [
