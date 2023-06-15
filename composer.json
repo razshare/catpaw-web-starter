@@ -17,13 +17,16 @@
         "watch": "php -dxdebug.mode=debug -dxdebug.start_with_request=yes ./bin/start --entry='./src/main.php' --libraries='./src/lib/' --resources='./resources/' --info --watch",
         "product": "php -dxdebug.mode=off -dxdebug.start_with_request=no -dphar.readonly=0 ./product.phar --build-config",
         "build": "php -dxdebug.mode=off -dxdebug.start_with_request=no -dphar.readonly=0 ./product.phar --build-config --build",
-        "download:product": "[ ! -f product.phar ] && wget https://github.com/tncrazvan/catpaw-dev-tools/releases/download/0.4.191/product.phar || echo \"product.phar found.\n\"",
         "edit:extensions": "@download:product && php product.phar --extensions",
+        "download:product": "[ ! -f product.phar ] && wget https://github.com/tncrazvan/catpaw-dev-tools/releases/download/0.4.191/product.phar || echo \"product.phar found.\n\"",
+        "download:psalm": "[ ! -f vendor/bin/psalm ] && wget -O vendor/bin/psalm https://github.com/vimeo/psalm/releases/latest/download/psalm.phar || echo \"vendor/bin/psalm found.\n\"",
         "post-autoload-dump": [
-            "@download:product"
+            "@download:product",
+            "@download:psalm"
         ],
         "post-create-project-cmd": [
-            "@download:product"
+            "@download:product",
+            "@download:psalm"
         ]
     },
     "authors": [
@@ -39,11 +42,12 @@
             "App\\": "src/lib/"
         }
     },
+    "minimum-stability": "dev",
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "catpaw/core": "^0.7",
-        "amphp/amp": "^2.6",
-        "amphp/file": "^2.0",
+        "amphp/amp": "^3.0",
+        "amphp/file": "^3.0",
         "catpaw/web": "^0.7"
     },
     "autoload-dev": {
@@ -53,8 +57,7 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.8",
-        "phpunit/phpunit": "^9",
-        "vimeo/psalm": "^4.23"
+        "phpunit/phpunit": "^9"
     },
     "config": {
         "preferred-install": "dist",
