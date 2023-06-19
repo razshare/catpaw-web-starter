@@ -12,7 +12,7 @@
         ],
         "action:test": [],
         "test": [],
-        "start": "php -dxdebug.mode=off ./bin/start --entry='./src/main.php' --libraries='./src/lib/' --info",
+        "start": "php -dxdebug.mode=off ./bin/start --entry='./src/main.php' --libraries='./src/lib/'",
         "debug": "php -dxdebug.mode=debug -dxdebug.start_with_request=yes ./bin/start --entry='./src/main.php' --libraries='./src/lib/' --info",
         "watch": "php -dxdebug.mode=debug -dxdebug.start_with_request=yes ./bin/start --entry='./src/main.php' --libraries='./src/lib/' --resources='./resources/' --info --watch",
         "product": "php -dxdebug.mode=off -dxdebug.start_with_request=no -dphar.readonly=0 ./product.phar --build-config",
