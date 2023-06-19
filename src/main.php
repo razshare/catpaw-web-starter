@@ -5,6 +5,7 @@ use CatPaw\Web\Server;
 use CatPaw\Web\Services\OpenAPIService;
 
 function main():void {
-    Route::get("/openapi", #[IgnoreOpenAPI] fn (OpenAPIService $oa) => $oa->getData());
-    Server::create()->start();
+    $server = Server::create();
+    $server->router->get("/openapi", #[IgnoreOpenAPI] fn (OpenAPIService $oa) => $oa->getData());
+    $server->start();
 }
