@@ -9,7 +9,6 @@ $_ENV = [
 ];
 require 'vendor/autoload.php';
 
-
 $entry       = new Option('--entry');
 $name        = new Option('--name');
 $libraries   = new Option('--libraries');
