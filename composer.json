@@ -44,7 +44,7 @@
     },
     "minimum-stability": "dev",
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "catpaw/core": "^0.7",
         "amphp/amp": "^3.0",
         "amphp/file": "^3.0",
