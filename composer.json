@@ -10,8 +10,8 @@
             "php -dxdebug.mode=off -dxdebug.start_with_request=no ./vendor/bin/php-cs-fixer fix src",
             "php -dxdebug.mode=off -dxdebug.start_with_request=no ./vendor/bin/php-cs-fixer fix tests"
         ],
-        "action:test": [],
         "test": [],
+        "test:debug": [],
         "start": "php -dxdebug.mode=off ./bin/start --entry='./src/main.php' --libraries='./src/lib/'",
         "debug": "php -dxdebug.mode=debug -dxdebug.start_with_request=yes ./bin/start --entry='./src/main.php' --libraries='./src/lib/' --info",
         "watch": "php -dxdebug.mode=debug -dxdebug.start_with_request=yes ./bin/start --entry='./src/main.php' --libraries='./src/lib/' --resources='./resources/' --info --watch",
