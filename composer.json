@@ -41,10 +41,10 @@
     "minimum-stability": "dev",
     "require": {
         "php": "^8.2",
-        "catpaw/core": "^0.7",
+        "catpaw/core": "^1.0",
         "amphp/amp": "^3.0",
         "amphp/file": "^3.0",
-        "catpaw/web": "^0.7"
+        "catpaw/web": "^1.0"
     },
     "autoload-dev": {
         "psr-4": {
