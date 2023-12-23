@@ -2,7 +2,6 @@
 
 use CatPaw\Traits\create;
 use CatPaw\Web\Attributes\ProducesItem;
-use CatPaw\Web\Attributes\Views;
 
 class Quote {
     use create;
@@ -10,7 +9,6 @@ class Quote {
 }
 
 return
-#[Views]
 #[ProducesItem(Quote::class, "application/json")]
 function() {
     static $lines = [
