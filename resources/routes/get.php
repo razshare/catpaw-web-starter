@@ -1,5 +1,18 @@
 <?php
-return function() {
+
+use CatPaw\Traits\create;
+use CatPaw\Web\Attributes\ProducesItem;
+use CatPaw\Web\Attributes\Views;
+
+class Quote {
+    use create;
+    public string $content;
+}
+
+return
+#[Views]
+#[ProducesItem(Quote::class, "application/json")]
+function() {
     static $lines = [
         '"Cats are connoisseurs of comfort." - James Herriot',
         '"Just watching my cats can make me happy." - Paula Cole',
@@ -10,5 +23,7 @@ return function() {
     ];
 
     
-    return $lines[array_rand($lines)];
+    return Quote::create(function(Quote $quote) use ($lines) {
+        $quote->content = $lines[array_rand($lines)];
+    });
 };
