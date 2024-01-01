@@ -7,6 +7,7 @@
   "scripts": {
     "load": "composer dump-autoload -o",
     "prod:test": [],
+    "prod:dock": ["./bin/image", "docker run -p 80:5757 -td app"],
     "prod:start": "php ./bin/start --entry='./src/main.php' --libraries='./src/lib/'",
     "prod:build": "php -dphar.readonly=0 ./build.phar --init-config --optimize",
     "dev:fix": [

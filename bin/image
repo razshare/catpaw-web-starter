@@ -1,0 +1,8 @@
+#!/bin/bash
+#Build images for libevent and the app itself
+if [ ! -f ./libevent/php8/Dockerfile-php8.2 ]; then
+    git clone https://bitbucket.org/osmanov/pecl-event/src/master/ libevent
+fi
+docker build -t libevent -f php8/Dockerfile-php8.2 .
+composer prod:build
+docker build -t app .
