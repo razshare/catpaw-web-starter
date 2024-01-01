@@ -3,6 +3,8 @@
 if [ ! -f ./libevent/php8/Dockerfile-php8.2 ]; then
     git clone https://bitbucket.org/osmanov/pecl-event/src/master/ libevent
 fi
-docker build -t libevent -f ./libevent/php8/Dockerfile-php8.2 .
+cd libevent || exit 1
+docker build -t libevent -f php8/Dockerfile-php8.2 .
+cd ..
 composer prod:build
 docker build -t app .
