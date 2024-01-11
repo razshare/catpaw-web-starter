@@ -1,32 +1,30 @@
 {
-  "name": "catpaw/web-starter",
+  "name": "catpaw/starter",
   "type": "project",
-  "description": "A php CatPaw web server starter template",
-  "homepage": "https://github.com/tncrazvan/catpaw-starter",
+  "description": "A php CatPaw starter template",
+  "homepage": "https://github.com/tncrazvan/catpaw-web-starter",
   "license": "MIT",
   "scripts": {
-    "load": "composer dump-autoload -o",
-    "prod:test": [],
+    "load": "@composer dump-autoload -o",
     "prod:dock": ["./bin/image", "docker run -p 80:5757 -td app"],
-    "prod:start": "php ./bin/start --entry='./src/main.php' --libraries='./src/lib/'",
-    "prod:build": "php -dphar.readonly=0 ./build.phar --init-config --optimize",
-    "dev:fix": [
-      "php -dxdebug.mode=off ./vendor/bin/php-cs-fixer fix src",
-      "php -dxdebug.mode=off ./vendor/bin/php-cs-fixer fix tests"
-    ],
-    "dev:test": [],
-    "dev:start": "php -dxdebug.mode=debug -dxdebug.start_with_request=yes ./bin/start --entry='./src/main.php' --libraries='./src/lib/' --info",
-    "dev:watch": "php ./bin/start --entry='./src/main.php' --libraries='./src/lib/' --resources='./resources/' --info --watch --php='php -dxdebug.mode=debug -dxdebug.start_with_request=yes'",
-    "dev:build": "php -dxdebug.mode=off -dxdebug.start_with_request=no -dphar.readonly=0 ./build.phar --init-config",
-    "download:build": "[ ! -f build.phar ] && wget https://github.com/tncrazvan/catpaw-build/releases/latest/download/build.phar || echo ''",
+    "prod:start": "@php ./bin/start --libraries='./src/lib' --entry='./src/main.php'",
+    "prod:build": "@php -dphar.readonly=0 ./catpaw.phar --build --build-optimize",
+    "prod:test": "@php vendor/bin/phpunit tests",
+    "prod:fix": "@php -dxdebug.mode=off ./vendor/bin/php-cs-fixer fix .",
+    "dev:start": "@php -dxdebug.mode=debug -dxdebug.start_with_request=yes ./bin/start --libraries='./src/lib' --entry='./src/main.php'",
+    "dev:watch": "@php ./bin/start --entry='./src/main.php' --libraries='./src/lib' --resources='./server' --info --watch --php='php -dxdebug.mode=debug -dxdebug.start_with_request=yes'",
+    "dev:build": "@php -dphar.readonly=0 ./catpaw.phar --build",
+    "dev:test": "@php -dxdebug.mode=debug -dxdebug.start_with_request=yes vendor/bin/phpunit tests",
+    "dev:fix": "@php -dxdebug.mode=off ./vendor/bin/php-cs-fixer fix .",
+    "download:catpaw": "[ ! -f catpaw.phar ] && wget https://github.com/tncrazvan/catpaw/releases/latest/download/catpaw.phar || echo ''",
     "download:psalm": "[ ! -f psalm.phar ] && wget https://github.com/vimeo/psalm/releases/latest/download/psalm.phar || echo ''",
     "post-autoload-dump": [
       "@download:psalm",
-      "@download:build"
+      "@download:catpaw"
     ],
     "post-create-project-cmd": [
       "@download:psalm",
-      "@download:build"
+      "@download:catpaw"
     ]
   },
   "authors": [
@@ -45,10 +43,12 @@
   "minimum-stability": "stable",
   "require": {
     "php": "^8.2",
-    "catpaw/core": "^1.0",
-    "amphp/amp": "^3.0",
-    "amphp/file": "^3.0",
-    "catpaw/web": "^1.0"
+    "ext-mbstring": "*",
+    "ext-pcntl": "*",
+    "ext-openssl": "*",
+    "ext-zlib": "*",
+    "ext-yaml": "*",
+    "catpaw/catpaw": "^2.0"
   },
   "autoload-dev": {
     "psr-4": {

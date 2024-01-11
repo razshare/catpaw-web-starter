@@ -1,8 +1,8 @@
 <?php
 
 use const CatPaw\Web\APPLICATION_JSON;
-
 use CatPaw\Web\Attributes\ProducesItem;
+
 
 class Quote {
     public function __construct(
@@ -11,11 +11,14 @@ class Quote {
     }
 }
 
+
+
+
 return
 #[ProducesItem(
     Quote::class,
     APPLICATION_JSON,
-    new Quote( content: '"Cats are connoisseurs of comfort." - James Herriot' ),
+    new Quote(content: '"Cats are connoisseurs of comfort." - James Herriot'),
 )]
 function() {
     static $lines = [

@@ -13,7 +13,7 @@ Install `^php8.2` and the following extenstions:
 
 Clone the repository with 
 ```sh
-git clone git@github.com:tncrazvan/catpaw-web-starter.git
+git clone git@github.com:tncrazvan/catpaw-starter.git
 ```
 
 Install dependencies with
