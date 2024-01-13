@@ -25,7 +25,8 @@
     ],
     "post-create-project-cmd": [
       "@download:psalm",
-      "@download:catpaw"
+      "@download:catpaw",
+      "Done. Remember to run `composer dev:precommit` if you want to sanitize your code before committing."
     ]
   },
   "authors": [
