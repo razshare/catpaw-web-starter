@@ -7,7 +7,7 @@
   "scripts": {
     "load": "@composer dump-autoload -o",
     "prod:dock": ["./bin/image", "docker run -p 80:5757 -td app"],
-    "prod:start": "@php ./bin/start --libraries='./src/lib' --entry='./src/main.php'",
+    "prod:start": "@php -dopcache.enable_cli=1 -dopcache.jit_buffer_size=100M ./bin/start --libraries='./src/lib' --entry='./src/main.php'",
     "prod:build": "@php -dphar.readonly=0 ./catpaw.phar --build --build-optimize",
     "prod:test": "@php vendor/bin/phpunit tests",
     "prod:fix": "@php -dxdebug.mode=off ./vendor/bin/php-cs-fixer fix .",
