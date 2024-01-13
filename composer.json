@@ -16,6 +16,7 @@
     "dev:build": "@php -dphar.readonly=0 ./catpaw.phar --build",
     "dev:test": "@php -dxdebug.mode=debug -dxdebug.start_with_request=yes vendor/bin/phpunit tests",
     "dev:fix": "@php -dxdebug.mode=off ./vendor/bin/php-cs-fixer fix .",
+    "dev:precommit": "pre-commit install && pre-commit autoupdate",
     "download:catpaw": "[ ! -f catpaw.phar ] && wget https://github.com/tncrazvan/catpaw/releases/latest/download/catpaw.phar || echo ''",
     "download:psalm": "[ ! -f psalm.phar ] && wget https://github.com/vimeo/psalm/releases/latest/download/psalm.phar || echo ''",
     "post-autoload-dump": [
