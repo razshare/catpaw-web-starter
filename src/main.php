@@ -24,7 +24,7 @@ function main(OpenApiService $oa) {
             apiPrefix: env('apiPrefix'),
         )
             ->try($error)
-        or yield $error;
+            or yield $error;
 
         $server
             ->router
