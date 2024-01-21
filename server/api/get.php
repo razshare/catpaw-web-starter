@@ -3,6 +3,7 @@
 use const CatPaw\Web\APPLICATION_JSON;
 use CatPaw\Web\Attributes\ProducesItem;
 
+use function CatPaw\Web\success;
 
 class Quote {
     public function __construct(
@@ -30,5 +31,5 @@ function() {
         '"One cat just leads to another." - Ernest Hemingway',
     ];
 
-    return new Quote(content: $lines[array_rand($lines)]);
+    return success(new Quote(content: $lines[array_rand($lines)]))->as(APPLICATION_JSON)->item();
 };
