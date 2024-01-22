@@ -1,7 +1,10 @@
 <?php
+use const CatPaw\Web\__APPLICATION_JSON;
+use const CatPaw\Web\__OK;
 
-use const CatPaw\Web\APPLICATION_JSON;
-use CatPaw\Web\Attributes\ProducesItem;
+use CatPaw\Web\Attributes\OperationId;
+use CatPaw\Web\Attributes\ProducesPage;
+use CatPaw\Web\Attributes\Summary;
 
 use function CatPaw\Web\success;
 
@@ -12,15 +15,16 @@ class Quote {
     }
 }
 
-
-
-
 return
-#[ProducesItem(
-    Quote::class,
-    APPLICATION_JSON,
-    new Quote(content: '"Cats are connoisseurs of comfort." - James Herriot'),
+#[OperationId('findQuotes')]
+#[ProducesPage(
+    status: __OK,
+    contentType: __APPLICATION_JSON,
+    description: 'on success',
+    className: Quote::class,
+    example: new Quote(content: '"Cats are connoisseurs of comfort." - James Herriot'),
 )]
+#[Summary("What even is a cat?")]
 function() {
     static $lines = [
         '"Cats are connoisseurs of comfort." - James Herriot',
@@ -31,5 +35,5 @@ function() {
         '"One cat just leads to another." - Ernest Hemingway',
     ];
 
-    return success(new Quote(content: $lines[array_rand($lines)]))->as(APPLICATION_JSON)->item();
+    return success(new Quote(content: $lines[array_rand($lines)]))->as(__APPLICATION_JSON)->item();
 };
