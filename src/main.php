@@ -1,29 +1,34 @@
 <?php
-use function CatPaw\Core\anyError;
-use function CatPaw\Core\env;
+
 use CatPaw\Core\Unsafe;
-use const CatPaw\Web\__APPLICATION_JSON;
 use CatPaw\Web\Attributes\IgnoreOpenApi;
 use CatPaw\Web\Server;
 use CatPaw\Web\Services\OpenApiService;
+use CatPaw\Web\Services\TwigService;
+use function CatPaw\Core\anyError;
+use function CatPaw\Core\env;
 use function CatPaw\Web\success;
+use const CatPaw\Web\__APPLICATION_JSON;
 
 /**
  * @return Unsafe<void>
  */
-function main(OpenApiService $oa) {
-    return anyError(function() use ($oa) {
+function main(OpenApiService $oa, TwigService $twigService): Unsafe {
+    return anyError(function() use ($oa, $twigService) {
         $oa->setTitle("My api");
         $oa->setVersion("1.0.0");
 
         $server = Server::create(
             interface: env('interface'),
-            www: env('www'),
-            api: env('api'),
+            api      : env('api'),
+            www      : env('www'),
             apiPrefix: env('apiPrefix'),
         )
             ->try($error)
             or yield $error;
+        
+            
+        $twigService->load($server->api)->try($error) or yield $error;
 
         $server
             ->router

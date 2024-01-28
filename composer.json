@@ -52,7 +52,8 @@
     "ext-openssl": "*",
     "ext-zlib": "*",
     "ext-yaml": "*",
-    "catpaw/catpaw": "^2.0"
+    "catpaw/catpaw": "^2.0",
+    "twig/twig": "^3.0"
   },
   "autoload-dev": {
     "psr-4": {
