@@ -6,8 +6,8 @@ use Amp\Websocket\Server\WebsocketClientHandler;
 use Amp\Websocket\WebsocketClient;
 use CatPaw\Core\State;
 use CatPaw\Web\Attributes\IgnoreOpenApi;
-use Revolt\EventLoop;
 use function CatPaw\Web\websocket;
+use Revolt\EventLoop;
 
 return 
     #[IgnoreOpenApi]
@@ -17,11 +17,11 @@ return
                 public string $name = '...';
             };
 
-            $state->run(function() use($client, $state) {
+            $state->run(function() use ($client, $state) {
                 $client->sendText("hello $state->name");
             });
 
-            EventLoop::delay(2, function() use($state){
+            EventLoop::delay(2, function() use ($state) {
                 $state->name = 'world!';
             });
 
