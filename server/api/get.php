@@ -2,15 +2,14 @@
 
 use CatPaw\Web\Accepts;
 use CatPaw\Web\Attributes\Produces;
-use CatPaw\Web\Services\TwigService;
+use function CatPaw\Core\asFileName;
 use function CatPaw\Web\failure;
+use function CatPaw\Web\twig;
 use const CatPaw\Web\__APPLICATION_JSON;
 use const CatPaw\Web\__OK;
-
 use CatPaw\Web\Attributes\OperationId;
 use CatPaw\Web\Attributes\ProducesPage;
 use CatPaw\Web\Attributes\Summary;
-
 use function CatPaw\Web\success;
 use const CatPaw\Web\__TEXT_HTML;
 
@@ -32,7 +31,7 @@ return
 )]
 #[Produces(__OK, __TEXT_HTML, 'Html page', 'string')]
 #[Summary("What even is a cat?")]
-function(Accepts $accepts, TwigService $twig) {
+function(Accepts $accepts) {
     static $lines = array(
         '"Cats are connoisseurs of comfort." - James Herriot',
         '"Just watching my cats can make me happy." - Paula Cole',
@@ -44,10 +43,9 @@ function(Accepts $accepts, TwigService $twig) {
 
     $quote = $lines[array_rand($lines)];
     
-    /** @var Error $error */
     return match (true){
         $accepts->json() => success(new Quote(content: $quote))->as(__APPLICATION_JSON)->item(),
-        $accepts->html() => success($twig->render('get', array('quote' => $quote))->try($error))->as(__TEXT_HTML),
-        default => failure("Cannot serve {$accepts}.")
-    } or failure($error->getMessage());
+        $accepts->html() => twig(asFileName(__DIR__, 'get'))->setProperty('quote', $quote)->render(),
+        default => failure("Cannot serve {$accepts}."),
+    };
 };
