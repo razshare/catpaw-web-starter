@@ -1,16 +1,16 @@
 <?php
 
 use function CatPaw\Core\asFileName;
-use const CatPaw\Web\__APPLICATION_JSON;
-use const CatPaw\Web\__OK;
-use const CatPaw\Web\__TEXT_HTML;
 use CatPaw\Web\Accepts;
+use const CatPaw\Web\APPLICATION_JSON;
 use CatPaw\Web\Attributes\OperationId;
 use CatPaw\Web\Attributes\Produces;
 use CatPaw\Web\Attributes\ProducesPage;
 use CatPaw\Web\Attributes\Summary;
 use function CatPaw\Web\failure;
+use const CatPaw\Web\OK;
 use function CatPaw\Web\success;
+use const CatPaw\Web\TEXT_HTML;
 use function CatPaw\Web\twig;
 
 class Quote {
@@ -23,13 +23,13 @@ class Quote {
 return
 #[OperationId('findQuotes')]
 #[ProducesPage(
-    status: __OK,
-    contentType: __APPLICATION_JSON,
+    status: OK,
+    contentType: APPLICATION_JSON,
     description: 'on success',
     className: Quote::class,
     example: new Quote(content: '"Cats are connoisseurs of comfort." - James Herriot'),
 )]
-#[Produces(__OK, __TEXT_HTML, 'Html page', 'string')]
+#[Produces(OK, TEXT_HTML, 'Html page', 'string')]
 #[Summary("What even is a cat?")]
 function(Accepts $accepts) {
     static $lines = [
@@ -44,7 +44,7 @@ function(Accepts $accepts) {
     $quote = $lines[array_rand($lines)];
     
     return match (true) {
-        $accepts->json() => success(new Quote(content: $quote))->as(__APPLICATION_JSON)->item(),
+        $accepts->json() => success(new Quote(content: $quote))->as(APPLICATION_JSON)->item(),
         $accepts->html() => twig(asFileName(__DIR__, 'get'))->setProperty('quote', $quote)->render(),
         default          => failure("Cannot serve {$accepts}."),
     };
