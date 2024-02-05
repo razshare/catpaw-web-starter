@@ -45,7 +45,7 @@ function(Accepts $accepts) {
     
     return match (true) {
         $accepts->json() => success(new Quote(content: $quote))->as(APPLICATION_JSON)->item(),
-        $accepts->html() => twig(asFileName(__DIR__, 'get'))->setProperty('quote', $quote)->render(),
+        $accepts->html() => twig(asFileName(__DIR__, './get.twig'))->setProperty('quote', $quote)->render(),
         default          => failure("Cannot serve {$accepts}."),
     };
 };
