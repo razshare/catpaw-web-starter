@@ -1,5 +1,4 @@
 <?php
-
 use Amp\Http\Server\Request;
 use Amp\Http\Server\Response;
 use Amp\Websocket\Server\WebsocketClientHandler;

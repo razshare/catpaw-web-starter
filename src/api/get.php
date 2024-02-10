@@ -1,11 +1,10 @@
 <?php
-
 use function CatPaw\Core\asFileName;
 use CatPaw\Web\Accepts;
 use const CatPaw\Web\APPLICATION_JSON;
 use CatPaw\Web\Attributes\OperationId;
 use CatPaw\Web\Attributes\Produces;
-use CatPaw\Web\Attributes\ProducesPage;
+use CatPaw\Web\Attributes\ProducesItem;
 use CatPaw\Web\Attributes\Summary;
 use function CatPaw\Web\failure;
 use const CatPaw\Web\OK;
@@ -22,7 +21,7 @@ class Quote {
 
 return
 #[OperationId('findQuotes')]
-#[ProducesPage(
+#[ProducesItem(
     status: OK,
     contentType: APPLICATION_JSON,
     description: 'on success',
