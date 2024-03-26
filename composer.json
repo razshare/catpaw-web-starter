@@ -15,7 +15,7 @@
     "prod:test": "@php vendor/bin/phpunit tests",
     "prod:fix": "@php -dxdebug.mode=off ./vendor/bin/php-cs-fixer fix .",
     "dev:start": "@php -dxdebug.mode=debug -dxdebug.start_with_request=yes ./bin/start --libraries='./src/lib' --entry='./src/main.php' --environment='./env.yaml'",
-    "dev:watch": "@php ./bin/start --entry='./src/main.php' --libraries='./src/lib' --resources='./src/api,./env.yml' --info --watch --php='php -dxdebug.mode=debug -dxdebug.start_with_request=yes' --environment='./env.yaml'",
+    "dev:watch": "@php ./bin/start --entry='./src/main.php' --libraries='./src/lib' --resources='./src/api,./env.yaml' --info --watch --php='php -dxdebug.mode=debug -dxdebug.start_with_request=yes' --environment='./env.yaml'",
     "dev:build": "@php -dphar.readonly=0 ./catpaw.phar --build --environment='./build.yaml'",
     "dev:test": "@php -dxdebug.mode=debug -dxdebug.start_with_request=yes vendor/bin/phpunit tests",
     "dev:fix": "@php -dxdebug.mode=off ./vendor/bin/php-cs-fixer fix .",
