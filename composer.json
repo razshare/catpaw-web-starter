@@ -52,7 +52,7 @@
     "ext-openssl": "*",
     "ext-zlib": "*",
     "ext-yaml": "*",
-    "catpaw/catpaw": "v3.x-dev",
+    "catpaw/catpaw": "^3.0",
     "twig/twig": "^3.0"
   },
   "autoload-dev": {
