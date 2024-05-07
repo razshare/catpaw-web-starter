@@ -1,6 +1,6 @@
 Catpaw Web Starter
 
-Start the development server using
+Start the development application using
 
 ```bash
 composer dev:start
@@ -12,4 +12,4 @@ or
 composer dev:watch
 ```
 
-which will restart the server whenever a change is detected in your _src_ directory.
+which will restart the application whenever a change is detected in your _src_ directory.
