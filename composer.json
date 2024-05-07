@@ -15,12 +15,12 @@
     "prod:test": "@php vendor/bin/phpunit tests",
     "prod:fix": "@php -dxdebug.mode=off ./vendor/bin/php-cs-fixer fix .",
     "dev:start": "@php -dxdebug.mode=debug -dxdebug.start_with_request=yes ./bin/start --libraries='./src/lib' --entry='./src/main.php' --environment='./env.yaml'",
-    "dev:watch": "@php ./bin/start --entry='./src/main.php' --libraries='./src/lib' --resources='./src/api,./env.yaml' --info --watch --php='php -dxdebug.mode=debug -dxdebug.start_with_request=yes' --environment='./env.yaml'",
+    "dev:watch": "@php ./bin/start --entry='./src/main.php' --libraries='./src/lib' --resources='./src,./env.yaml' --info --watch --php='php -dxdebug.mode=debug -dxdebug.start_with_request=yes' --environment='./env.yaml'",
     "dev:build": "@php -dphar.readonly=0 ./catpaw.phar --build --environment='./build.yaml'",
     "dev:test": "@php -dxdebug.mode=debug -dxdebug.start_with_request=yes vendor/bin/phpunit tests",
     "dev:fix": "@php -dxdebug.mode=off ./vendor/bin/php-cs-fixer fix .",
-    "dev:precommit": "pre-commit install && pre-commit autoupdate",
     "dev:tips": "[ ! -f catpaw.phar ] && echo '' || php catpaw.phar --tips",
+    "dev:install-pre-commit": "@prod:start --install-pre-commit='composer prod:fix && composer prod:test'",
     "download:catpaw": "[ ! -f catpaw.phar ] && wget https://github.com/tncrazvan/catpaw/releases/latest/download/catpaw.phar || echo ''",
     "post-autoload-dump": [
       "@download:catpaw",
@@ -52,7 +52,7 @@
     "ext-openssl": "*",
     "ext-zlib": "*",
     "ext-yaml": "*",
-    "catpaw/catpaw": "^2.0",
+    "catpaw/catpaw": "v3.x-dev",
     "twig/twig": "^3.0"
   },
   "autoload-dev": {

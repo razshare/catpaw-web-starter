@@ -1,5 +1,7 @@
 <?php
 use function CatPaw\Core\asFileName;
+use function CatPaw\Superstyle\superstyle;
+
 use CatPaw\Web\Accepts;
 use const CatPaw\Web\APPLICATION_JSON;
 use CatPaw\Web\Attributes\OperationId;
@@ -10,7 +12,6 @@ use function CatPaw\Web\failure;
 use const CatPaw\Web\OK;
 use function CatPaw\Web\success;
 use const CatPaw\Web\TEXT_HTML;
-use function CatPaw\Web\twig;
 
 class Quote {
     public function __construct(
@@ -44,7 +45,7 @@ function(Accepts $accepts) {
     
     return match (true) {
         $accepts->json() => success(new Quote(content: $quote))->as(APPLICATION_JSON)->item(),
-        $accepts->html() => twig(asFileName(__DIR__, './get.twig'))->setProperty('quote', $quote)->render(),
+        $accepts->html() => superstyle(asFileName(__DIR__, './view.hbs'))->setProperty('quote', $quote)->render(title:"Cat quotes."),
         default          => failure("Cannot serve {$accepts}."),
     };
 };
