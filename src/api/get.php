@@ -1,6 +1,4 @@
 <?php
-use function CatPaw\Core\asFileName;
-use function CatPaw\Superstyle\superstyle;
 
 use CatPaw\Web\Accepts;
 use const CatPaw\Web\APPLICATION_JSON;
@@ -29,6 +27,7 @@ return
     className: Quote::class,
     example: new Quote(content: '"Cats are connoisseurs of comfort." - James Herriot'),
 )]
+#[Produces(OK, APPLICATION_JSON, 'Html page', 'string')]
 #[Produces(OK, TEXT_HTML, 'Html page', 'string')]
 #[Summary("What even is a cat?")]
 function(Accepts $accepts) {
@@ -45,7 +44,6 @@ function(Accepts $accepts) {
     
     return match (true) {
         $accepts->json() => success(new Quote(content: $quote))->as(APPLICATION_JSON)->item(),
-        $accepts->html() => superstyle(asFileName(__DIR__, './view.hbs'))->setProperty('quote', $quote)->render(title:"Cat quotes."),
         default          => failure("Cannot serve {$accepts}."),
     };
 };

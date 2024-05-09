@@ -6,13 +6,14 @@ use function CatPaw\Core\env;
 use CatPaw\Core\Unsafe;
 use const CatPaw\Web\APPLICATION_JSON;
 use CatPaw\Web\Attributes\IgnoreOpenApi;
+use CatPaw\Web\Interfaces\ResponseModifier;
 use CatPaw\Web\Server;
 use CatPaw\Web\Services\HandlebarsService;
 use CatPaw\Web\Services\OpenApiService;
 use function CatPaw\Web\success;
 
 #[IgnoreOpenApi]
-function openapi(OpenApiService $oa) {
+function openapi(OpenApiService $oa):ResponseModifier {
     return success($oa->getData())->as(APPLICATION_JSON);
 }
 
@@ -29,6 +30,7 @@ function main(OpenApiService $oa, HandlebarsService $handlebars): Unsafe {
         $server = Server::get()
             ->withInterface(env('interface'))
             ->withApiLocation(env('apiLocation'))
+            ->withApiPrefix('/api')
             ->withStaticsLocation(env('staticsLocation'));
 
         $server->router->get('/openapi', openapi(...))->try();
