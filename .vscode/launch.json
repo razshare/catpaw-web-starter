@@ -12,7 +12,7 @@
       "args": [
         "--libraries='./src/lib'",
         "--entry='./src/main.php'",
-        "--environment='./env.yaml'"
+        "--environment='./env.ini'"
       ],
       "cwd": "${workspaceRoot}",
       "runtimeArgs": ["-dxdebug.start_with_request=yes"],

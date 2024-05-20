@@ -1,5 +1,0 @@
-name: app
-entry: ./src/main.php
-libraries: ./src/lib
-environment: ./env.yaml
-match: /(^\.\/(\.build-cache|src|www|vendor|bin)\/.*)|(^\.\/(\.env|env\.yaml|env\.yml))/
