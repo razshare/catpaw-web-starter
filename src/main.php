@@ -8,8 +8,9 @@ use const CatPaw\Web\APPLICATION_JSON;
 use CatPaw\Web\Attributes\IgnoreOpenApi;
 use CatPaw\Web\Interfaces\ResponseModifier;
 use CatPaw\Web\Server;
-use CatPaw\Web\Services\HandlebarsService;
 use CatPaw\Web\Services\OpenApiService;
+use CatPaw\Web\Services\TwigService;
+
 use function CatPaw\Web\success;
 
 #[IgnoreOpenApi]
@@ -20,18 +21,18 @@ function openapi(OpenApiService $oa):ResponseModifier {
 /**
  * @return Unsafe<void>
  */
-function main(OpenApiService $oa, HandlebarsService $handlebars): Unsafe {
-    return anyError(function() use ($oa, $handlebars) {
-        $handlebars->withTemporaryDirectory(asFileName(__DIR__, './temp'));
+function main(OpenApiService $oa, TwigService $twig): Unsafe {
+    return anyError(function() use ($oa, $twig) {
+        $twig->loadComponent(asFileName(__DIR__, 'index.twig'), 'index')->try();
 
-        $oa->setTitle("My api");
+        $oa->setTitle("My Api");
         $oa->setVersion("1.0.0");
 
         $server = Server::get()
             ->withInterface(env('interface'))
+            ->withStaticsLocation(env('staticsLocation'))
             ->withApiLocation(env('apiLocation'))
-            ->withApiPrefix('/api')
-            ->withStaticsLocation(env('staticsLocation'));
+            ->withApiPrefix('/');
 
         $server->router->get('/openapi', openapi(...))->try();
 
