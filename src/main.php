@@ -7,36 +7,44 @@ use CatPaw\Core\Unsafe;
 
 use const CatPaw\Web\APPLICATION_JSON;
 use CatPaw\Web\Attributes\IgnoreOpenApi;
+use CatPaw\Web\Interfaces\OpenApiInterface;
 use CatPaw\Web\Interfaces\ResponseModifier;
-use function CatPaw\Web\loadComponent;
-use CatPaw\Web\Server;
-use CatPaw\Web\Services\OpenApiService;
+use CatPaw\Web\Interfaces\RouterInterface;
+use CatPaw\Web\Interfaces\ServerInterface;
+use CatPaw\Web\Interfaces\ViewEngineInterface;
 
+use function CatPaw\Web\loadComponentFromFile;
 use function CatPaw\Web\success;
 
 #[IgnoreOpenApi]
-function openapi(OpenApiService $oa):ResponseModifier {
-    return success($oa->getData())->as(APPLICATION_JSON);
+function openapi(OpenApiInterface $openApi):ResponseModifier {
+    return success($openApi->getData())->as(APPLICATION_JSON);
 }
 
 /**
  * @return Unsafe<void>
  */
-function main(OpenApiService $oa): Unsafe {
-    return anyError(function() use ($oa) {
-        $oa->setTitle("My Api");
-        $oa->setVersion("1.0.0");
-        
-        loadComponent(asFileName(__DIR__, 'index.twig'), 'index')->try();
+function main(
+    ServerInterface $server,
+    RouterInterface $router,
+    OpenApiInterface $openApi,
+    ViewEngineInterface $viewEngine,
+): Unsafe {
+    return anyError(function() use ($server, $router, $openApi, $viewEngine) {
+        $viewEngine->withTemporaryDirectory(asFileName(__DIR__, '.tmp'));
+        $openApi->setTitle("My Api");
+        $openApi->setVersion("1.0.0");
 
-        $server = Server::get()
+        loadComponentFromFile('index', [], asFileName(__DIR__, 'index.latte'))->try();
+
+        $router->get('/openapi', openapi(...))->try();
+
+        $server
             ->withInterface(env('interface'))
             ->withStaticsLocation(env('staticsLocation'))
             ->withApiLocation(env('apiLocation'))
-            ->withApiPrefix('/');
-
-        $server->router->get('/openapi', openapi(...))->try();
-
-        $server->start()->try();
+            ->withApiPrefix('/')
+            ->start()
+            ->try();
     });
 }
