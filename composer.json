@@ -47,7 +47,7 @@
     "ext-pcntl": "*",
     "ext-openssl": "*",
     "ext-zlib": "*",
-    "catpaw/catpaw": "^3.5"
+    "catpaw/catpaw": "^3.6"
   },
   "autoload-dev": {
     "psr-4": {
