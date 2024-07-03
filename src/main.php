@@ -15,7 +15,7 @@ use function CatPaw\Web\success;
 
 #[IgnoreOpenApi]
 function openapi(OpenApiInterface $openApi):ResponseModifier {
-    return success($openApi->getData())->as(APPLICATION_JSON);
+    return success($openApi->data())->as(APPLICATION_JSON);
 }
 
 /**
@@ -29,8 +29,8 @@ function main(
 ): Unsafe {
     return anyError(function() use ($server, $router, $openApi, $viewEngine) {
         $viewEngine->withTemporaryDirectory(asFileName(__DIR__, '.tmp'));
-        $openApi->setTitle("My Api");
-        $openApi->setVersion("1.0.0");
+        $openApi->withTitle("My Api");
+        $openApi->withVersion("1.0.0");
 
         loadComponentFromFile('index', [], asFileName(__DIR__, 'index.latte'))->try();
 
