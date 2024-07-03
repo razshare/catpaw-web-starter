@@ -6,12 +6,12 @@
   "license": "MIT",
   "scripts": {
     "load": "@composer dump-autoload -o",
-    "prod:start": "@php -dopcache.enable_cli=1 -dopcache.jit_buffer_size=100M bin/start --libraries=src/lib --entry=src/main.php --environment=env.ini",
+    "prod:start": "@php -dopcache.enable_cli=1 -dopcache.jit_buffer_size=100M bin/start --libraries=src/lib --main=src/main.php --environment=env.ini",
     "prod:build": "@php -dphar.readonly=0 catpaw.phar --build --environment=build.ini --optimize",
     "prod:test": "@php vendor/bin/phpunit tests",
     "prod:fix": "@php -dxdebug.mode=off vendor/bin/php-cs-fixer fix .",
-    "dev:start": "@php -dxdebug.mode=debug -dxdebug.start_with_request=yes bin/start --libraries=src/lib --entry=src/main.php --environment=env.ini",
-    "dev:watch": "@php bin/start --entry=src/main.php --libraries=src/lib --resources=src,env.ini --info --watch --php='php -dxdebug.mode=debug -dxdebug.start_with_request=yes' --environment=env.ini",
+    "dev:start": "@php -dxdebug.mode=debug -dxdebug.start_with_request=yes bin/start --libraries=src/lib --main=src/main.php --environment=env.ini",
+    "dev:watch": "@php bin/start --main=src/main.php --libraries=src/lib  --environment=env.ini --resources=src,env.ini --info --watch --php='php -dxdebug.mode=debug -dxdebug.start_with_request=yes -dxdebug.log_level=0'",
     "dev:build": "@php -dphar.readonly=0 catpaw.phar --build --environment=build.ini",
     "dev:test": "@php -dxdebug.mode=debug -dxdebug.start_with_request=yes vendor/bin/phpunit tests",
     "dev:fix": "@php -dxdebug.mode=off vendor/bin/php-cs-fixer fix .",
@@ -47,7 +47,7 @@
     "ext-pcntl": "*",
     "ext-openssl": "*",
     "ext-zlib": "*",
-    "catpaw/catpaw": "^3.6"
+    "catpaw/catpaw": "^3.7"
   },
   "autoload-dev": {
     "psr-4": {
