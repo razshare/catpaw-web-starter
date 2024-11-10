@@ -1,5 +1,8 @@
 <?php
 use function CatPaw\Core\env;
+use function CatPaw\Core\error;
+use CatPaw\Core\None;
+use CatPaw\Core\Result;
 use const CatPaw\Web\APPLICATION_JSON;
 use CatPaw\Web\Attributes\IgnoreOpenApi;
 use CatPaw\Web\Interfaces\OpenApiInterface;
@@ -13,19 +16,30 @@ function openapi(OpenApiInterface $openApi):ResponseModifier {
     return success($openApi->data())->as(APPLICATION_JSON);
 }
 
+/**
+ * 
+ * @param  ServerInterface  $server
+ * @param  RouterInterface  $router
+ * @param  OpenApiInterface $openApi
+ * @return Result<None>
+ */
 function main(
     ServerInterface $server,
     RouterInterface $router,
     OpenApiInterface $openApi,
-): void {
+): Result {
     $openApi->withTitle("My Api");
     $openApi->withVersion("1.0.0");
-    $router->get('/openapi', openapi(...))->try();
-    $server
+    
+    $router->get('/openapi', openapi(...))->unwrap($error);
+    if ($error) {
+        return error($error);
+    }
+
+    return $server
         ->withInterface(env('interface'))
         ->withStaticsLocation(env('staticsLocation'))
         ->withApiLocation(env('apiLocation'))
         ->withApiPrefix('/')
-        ->start()
-        ->try();
+        ->start();
 }
