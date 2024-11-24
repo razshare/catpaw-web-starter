@@ -10,9 +10,9 @@
       "request": "launch",
       "program": "${workspaceRoot}/bin/start",
       "args": [
-        "--libraries='./src/lib'",
-        "--main='./src/main.php'",
-        "--environment='./env.ini'"
+        "--libraries=./src/lib",
+        "--main=./src/main.php",
+        "--environment=./env.ini"
       ],
       "cwd": "${workspaceRoot}",
       "runtimeArgs": ["-dxdebug.start_with_request=yes"],
