@@ -11,7 +11,7 @@
       "program": "${workspaceRoot}/bin/start",
       "args": [
         "--libraries='./src/lib'",
-        "--entry='./src/main.php'",
+        "--main='./src/main.php'",
         "--environment='./env.ini'"
       ],
       "cwd": "${workspaceRoot}",
