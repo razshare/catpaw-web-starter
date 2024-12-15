@@ -17,7 +17,7 @@ function openapi(OpenApiInterface $openApi):ResponseModifier {
 }
 
 /**
- * 
+ * Application entry point.
  * @param  ServerInterface  $server
  * @param  RouterInterface  $router
  * @param  OpenApiInterface $openApi
