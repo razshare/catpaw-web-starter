@@ -1,7 +1,13 @@
 <?php
-$name ??= input();
-$greeting = match (empty($name)) {
-    true  => 'Welcome.',
+use CatPaw\Web\Query;
+$name ??= input(Query::class);
+
+if (!mounted()) {
+    return;
+}
+
+$greeting = match (empty($name->text())) {
+    true  => 'Welcome!',
     false => "Hello $name!",
 };
 ?>

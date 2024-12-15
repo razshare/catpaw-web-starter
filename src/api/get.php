@@ -1,8 +1,8 @@
 <?php
 use CatPaw\Document\Interfaces\DocumentInterface;
-use CatPaw\Web\Attributes\Query;
+use CatPaw\Web\Query;
 
-return fn (DocumentInterface $doc, #[Query] string $name = '') => $doc->run(
+return fn (DocumentInterface $doc, Query $name) => $doc->run(
     'welcome',
     ['name' => $name],
 );
