@@ -1,4 +1,3 @@
-<?php expose('/{name}') ?>
-<?php function mount(string $name = 'world'):void { ?>
+<?php return function(string $name = 'world') { ?>
     <h3>Hello <?=$name?></h3>
 <?php } ?>
