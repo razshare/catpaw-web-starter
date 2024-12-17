@@ -41,6 +41,6 @@ function main(
         ->withDocumentsLocation(env('documentsLocation'))
         ->withStaticsLocation(env('staticsLocation'))
         ->withApiLocation(env('apiLocation'))
-        ->withApiPrefix('/')
+        ->withApiPrefix(env('apiPrefix'))
         ->start();
 }
