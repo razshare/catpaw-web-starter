@@ -10,7 +10,7 @@ use CatPaw\Web\Interfaces\RenderInterface;
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Welcome</title>
-        <link rel="stylesheet" href="/index.css">
+        <link rel="stylesheet" href="/main.css">
     </head>
     <body>
         <div class="
@@ -20,7 +20,7 @@ use CatPaw\Web\Interfaces\RenderInterface;
             text-8xl
         ">
             <h3 class="text-orange-600">
-                Hello, <?=$name?>.
+                Hello, <?=$name?>!
             </h3>
         </div>
     </body>
