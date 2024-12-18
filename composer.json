@@ -18,12 +18,15 @@
     "dev:tips": "[ ! -f catpaw.phar ] && echo '' || php catpaw.phar --tips",
     "dev:install-pre-commit": "@prod:start --install-pre-commit=composer prod:fix && composer prod:test'",
     "download:catpaw": "[ ! -f catpaw.phar ] && wget https://github.com/tncrazvan/catpaw/releases/latest/download/catpaw.phar || echo ''",
+    "bun:install": "bun install",
     "post-autoload-dump": [
       "@download:catpaw",
+      "@bun:install",
       "@dev:tips"
     ],
     "post-create-project-cmd": [
       "@download:catpaw",
+      "@bun:install",
       "@dev:tips"
     ]
   },

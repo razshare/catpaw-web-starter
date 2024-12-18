@@ -16,8 +16,8 @@ use CatPaw\Web\Interfaces\ServerInterface;
 function main(ServerInterface $server): Result {
     $input  = asFileName(__DIR__, 'main.css')->absolute();
     $output = asFileName(__DIR__, '../statics/main.css')->absolute();
-
-    execute("asd tailwindcss -i $input -o $output")->logError();
+    
+    execute("bunx tailwindcss -i $input -o $output")->logError();
 
     return $server
         ->withInterface(env('interface'))
