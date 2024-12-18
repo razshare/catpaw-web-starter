@@ -20,7 +20,7 @@ use CatPaw\Web\Interfaces\RenderInterface;
             text-8xl
         ">
             <h3 class="text-orange-600">
-                Hello, <?=$name?>!
+                Hello, <?=$name?>.
             </h3>
         </div>
     </body>
