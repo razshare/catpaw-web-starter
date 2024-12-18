@@ -38,9 +38,7 @@ function main(
 
     return $server
         ->withInterface(env('interface'))
-        ->withDocumentsLocation(env('documentsLocation'))
         ->withStaticsLocation(env('staticsLocation'))
         ->withApiLocation(env('apiLocation'))
-        ->withApiPrefix(env('apiPrefix'))
         ->start();
 }
