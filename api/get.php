@@ -1,10 +1,9 @@
 <?php
-use CatPaw\Web\QueryItem;
-use function CatPaw\Web\render;
+use CatPaw\Web\Interfaces\RenderInterface;
 ?>
 
-<?php return static fn (QueryItem $name) => render(function() use ($name) { ?>
-    <?php $name = $name->text() ?: 'world'; ?>
+<?php return static function(RenderInterface $render, string $name = 'world') { ?>
+    <?php $render->start() ?>
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -26,4 +25,4 @@ use function CatPaw\Web\render;
         </div>
     </body>
     </html>
-<?php }) ?>
+<?php } ?>
