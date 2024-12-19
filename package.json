@@ -1,14 +1,8 @@
 {
-  "name": "catpaw-web-starter",
-  "module": "index.ts",
+  "name": "app",
   "type": "module",
   "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
-  },
-  "dependencies": {
+    "@types/bun": "latest",
     "tailwindcss": "^3.4.17"
   }
 }
