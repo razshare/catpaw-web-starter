@@ -8,8 +8,8 @@ return static function(
     #[Query]
     string $name = 'world',
 ) {
-    $render->start() ?>
-    <?php $layout->mount('Welcome', static function() use ($name) { ?>
+    $render->start();
+    $layout->mount('Welcome', static function() use ($name) { ?>
         <div class="
             fixed left-0 right-0 top-0 bottom-0 grid
             justify-center content-center
@@ -20,5 +20,5 @@ return static function(
                 Hello, <?=$name?>.
             </h3>
         </div>
-    <?php })?>
-<?php } ?>
+    <?php });
+} ?>
