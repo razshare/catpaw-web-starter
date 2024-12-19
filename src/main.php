@@ -15,7 +15,7 @@ use CatPaw\Web\Interfaces\ServerInterface;
  */
 function main(ServerInterface $server): Result {
     $input  = asFileName(__DIR__, 'main.css')->absolute();
-    $output = asFileName(__DIR__, '../statics/main.css')->absolute();
+    $output = asFileName(__DIR__, '../statics/assets/main.css')->absolute();
     
     execute("bunx tailwindcss -i $input -o $output")->logError();
 

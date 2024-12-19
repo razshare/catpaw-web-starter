@@ -1,8 +1,13 @@
 <?php
 use App\Components\LayoutComponent;
+use CatPaw\Web\Attributes\Produces;
 use CatPaw\Web\Attributes\Query;
+use CatPaw\Web\Attributes\Summary;
 use CatPaw\Web\Interfaces\RenderInterface;
-return static function(
+return 
+#[Summary("Says hello.")]
+#[Produces(200, 'text/html', 'A web page that says hello.', 'string')]
+static function(
     RenderInterface $render,
     LayoutComponent $layout,
     #[Query]
