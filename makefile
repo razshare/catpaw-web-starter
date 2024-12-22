@@ -1,7 +1,6 @@
 load:
 	composer update
 	composer dump-autoload -o
-	bun install
 
 test: vendor/bin/phpunit
 	php \
