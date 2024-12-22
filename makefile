@@ -33,7 +33,7 @@ watch: vendor/bin/catpaw src/main.php
 	--main=src/main.php \
 	--resources=src \
 	--watch \
-	--spawner="bunx tailwindcss -i src/main.css -o statics/assets/main.css && php -dxdebug.mode=debug -dxdebug.start_with_request=yes"
+	--spawner="php -dxdebug.mode=debug -dxdebug.start_with_request=yes"
 
 start: vendor/bin/catpaw src/main.php
 	php \
