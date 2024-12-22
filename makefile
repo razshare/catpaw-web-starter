@@ -51,7 +51,7 @@ configure:
 	main = src/main.php\n\
 	libraries = src/lib\n\
 	environment = env.ini\n\
-	match = \"/(^\.\/(\.build-cache|src|vendor|statics|bin)\/.*)|(^\.\/(\.env|env\.ini|env\.yml))/\"\n\
+	match = \"/(^\.\/(\.build-cache|src|vendor|statics)\/.*)|(^\.\/(\.env|env\.ini|env\.yml))/\"\n\
 	" > build.ini && printf "Build configuration file restored.\n"
 
 clean:
