@@ -5,23 +5,6 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch",
-      "type": "php",
-      "request": "launch",
-      "program": "${workspaceRoot}/bin/start",
-      "args": [
-        "--libraries=./src/lib",
-        "--main=./src/main.php",
-        "--environment=./env.ini"
-      ],
-      "cwd": "${workspaceRoot}",
-      "runtimeArgs": ["-dxdebug.start_with_request=yes"],
-      "env": {
-        "XDEBUG_MODE": "debug,develop",
-        "XDEBUG_CONFIG": "client_port=${port}"
-      }
-    },
-    {
       "name": "Listen",
       "type": "php",
       "request": "launch",

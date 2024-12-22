@@ -4,35 +4,6 @@
   "description": "A php CatPaw starter template",
   "homepage": "https://github.com/tncrazvan/catpaw-web-starter",
   "license": "MIT",
-  "scripts": {
-    "load": "@composer dump-autoload -o",
-    "prod:start": "@php -dopcache.enable_cli=1 -dopcache.jit_buffer_size=100M bin/start --libraries=src/lib --main=src/main.php --environment=env.ini",
-    "prod:build": "@php -dphar.readonly=0 catpaw.phar --build --environment=build.ini --optimize",
-    "prod:test": "@php vendor/bin/phpunit tests",
-    "prod:fix": "@php -dxdebug.mode=off vendor/bin/php-cs-fixer fix .",
-    "dev:start": "@php -dxdebug.mode=debug -dxdebug.start_with_request=yes bin/start --libraries=src/lib --main=src/main.php --environment=env.ini",
-    "dev:watch": "@php bin/start --main=src/main.php --libraries=src/lib --environment=env.ini --resources=src,env.ini --info --watch --php='php -dxdebug.mode=debug -dxdebug.start_with_request=yes -dxdebug.log_level=0'",
-    "dev:build": "@php -dphar.readonly=0 catpaw.phar --build --environment=build.ini",
-    "dev:test": "@php -dxdebug.mode=debug -dxdebug.start_with_request=yes vendor/bin/phpunit tests",
-    "dev:fix": "@php -dxdebug.mode=off vendor/bin/php-cs-fixer fix .",
-    "dev:tips": "[ ! -f catpaw.phar ] && echo '' || php catpaw.phar --tips",
-    "dev:install-pre-commit": "@prod:start --install-pre-commit=composer prod:fix && composer prod:test'",
-    "download:catpaw": "[ ! -f catpaw.phar ] && wget https://github.com/tncrazvan/catpaw/releases/latest/download/catpaw.phar || echo ''",
-    "setup:bun": "command -v bun >/dev/null 2>&1 || curl -fsSL https://bun.sh/install | bash",
-    "install:bun": "bun install",
-    "post-autoload-dump": [
-      "@download:catpaw",
-      "@setup:bun",
-      "@install:bun",
-      "@dev:tips"
-    ],
-    "post-create-project-cmd": [
-      "@download:catpaw",
-      "@setup:bun",
-      "@install:bun",
-      "@dev:tips"
-    ]
-  },
   "authors": [
     {
       "name": "Razvan Tanase",
