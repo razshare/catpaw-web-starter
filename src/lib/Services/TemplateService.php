@@ -1,5 +1,5 @@
 <?php
-namespace App;
+namespace App\Services;
 
 use CatPaw\Core\Attributes\Provider;
 use function CatPaw\Web\failure;
@@ -10,7 +10,7 @@ use Smarty\Smarty;
 use Throwable;
 
 #[Provider]
-class Template {
+class TemplateService {
     public function __construct(private Smarty $smarty) {
     }
 
