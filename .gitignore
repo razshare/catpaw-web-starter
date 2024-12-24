@@ -10,7 +10,6 @@
 /.credentials
 /.login
 /.release
-/.cache
 /.svelte-kit
 /dist
 /vendor
