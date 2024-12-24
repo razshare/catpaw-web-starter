@@ -8,6 +8,10 @@ test: vendor/bin/phpunit
 	-dxdebug.start_with_request=no \
 	vendor/bin/phpunit tests
 
+tailwind:
+	mkdir statics/assets -p
+	bunx tailwindcss -i src/main.css -o statics/assets/main.css
+
 fix: vendor/bin/php-cs-fixer
 	php \
 	-dxdebug.mode=off \
@@ -33,7 +37,9 @@ watch: vendor/bin/catpaw src/main.php
 	--main=src/main.php \
 	--resources=src \
 	--watch \
+	--initializer="make tailwind" \
 	--spawner="php -dxdebug.mode=debug -dxdebug.start_with_request=yes"
+
 
 start: vendor/bin/catpaw src/main.php
 	php \

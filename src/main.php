@@ -5,7 +5,6 @@ use function CatPaw\Core\env;
 use function CatPaw\Core\error;
 use CatPaw\Core\FileName;
 use CatPaw\Core\None;
-use CatPaw\Core\Process;
 use CatPaw\Core\Result;
 use CatPaw\Web\Interfaces\ServerInterface;
 use Smarty\Smarty;
@@ -32,12 +31,27 @@ function main(ServerInterface $server): Result {
         return error("Smarty cache directory not defined in environment variables (`smarty.cache`).");
     }
 
+    $smartyTemplateDirectory = FileName::create($smartyTemplateDirectory)->absolute();
+    $smartyConfigDirectory   = FileName::create($smartyConfigDirectory)->absolute();
+    $smartyCompileDirectory  = FileName::create($smartyCompileDirectory)->absolute();
+
+    Directory::create($smartyCompileDirectory)->unwrap($error);
+    if ($error) {
+        return error($error);
+    }
+    
+    $smartyCacheDirectory = FileName::create($smartyCacheDirectory)->absolute();
+    Directory::create($smartyCacheDirectory)->unwrap($error);
+    if ($error) {
+        return error($error);
+    }
+
     // Using Smarty as a template engine.
     $smarty = new Smarty;
-    $smarty->setTemplateDir(FileName::create($smartyTemplateDirectory)->absolute());
-    $smarty->setConfigDir(FileName::create($smartyConfigDirectory)->absolute());
-    $smarty->setCompileDir(FileName::create($smartyCompileDirectory)->absolute());
-    $smarty->setCacheDir(FileName::create($smartyCacheDirectory)->absolute());
+    $smarty->setTemplateDir($smartyTemplateDirectory);
+    $smarty->setConfigDir($smartyConfigDirectory);
+    $smarty->setCompileDir($smartyCompileDirectory);
+    $smarty->setCacheDir($smartyCacheDirectory);
 
     $errors = [];
     $smarty->testInstall($errors);
@@ -53,22 +67,6 @@ function main(ServerInterface $server): Result {
 
     // Create assets.
     Directory::create(FileName::create(__DIR__, '../statics/assets')->absolute())->unwrap($error);
-    if ($error) {
-        return error($error);
-    }
-
-    // Build tailwind.
-    if ('' === $tailwindInput = env('tailwind.input')) {
-        return error('Tailwind input not provided.');
-    }
-
-    if ('' === $tailwindOutput = env('tailwind.output')) {
-        return error('Tailwind output not provided.');
-    }
-
-    $input  = FileName::create($tailwindInput)->absolute();
-    $output = FileName::create($tailwindOutput)->absolute();
-    Process::execute("bunx tailwindcss -i $input -o $output")->unwrap($error);
     if ($error) {
         return error($error);
     }
