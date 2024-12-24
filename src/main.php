@@ -33,18 +33,19 @@ function main(ServerInterface $server): Result {
 
     $smartyTemplateDirectory = FileName::create($smartyTemplateDirectory)->absolute();
     $smartyConfigDirectory   = FileName::create($smartyConfigDirectory)->absolute();
+    $smartyCacheDirectory    = FileName::create($smartyCacheDirectory)->absolute();
     $smartyCompileDirectory  = FileName::create($smartyCompileDirectory)->absolute();
 
+    Directory::create($smartyCacheDirectory)->unwrap($error);
+    if ($error) {
+        return error($error);
+    }
+    
     Directory::create($smartyCompileDirectory)->unwrap($error);
     if ($error) {
         return error($error);
     }
     
-    $smartyCacheDirectory = FileName::create($smartyCacheDirectory)->absolute();
-    Directory::create($smartyCacheDirectory)->unwrap($error);
-    if ($error) {
-        return error($error);
-    }
 
     // Using Smarty as a template engine.
     $smarty = new Smarty;
