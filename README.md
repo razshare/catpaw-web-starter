@@ -1,5 +1,7 @@
 # Catpaw Starter
 
+You will need to [install Bun](https://bun.sh/).
+
 You can run your program in one of three modes.
 
 # Development Mode

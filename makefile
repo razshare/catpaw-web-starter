@@ -18,7 +18,7 @@ fix: vendor/bin/php-cs-fixer
 	-dxdebug.start_with_request=no \
 	vendor/bin/php-cs-fixer fix .
 
-dev: vendor/bin/catpaw src/main.php
+dev: tailwind vendor/bin/catpaw src/main.php
 	php \
 	-dxdebug.mode=debug \
 	-dxdebug.start_with_request=yes \
@@ -41,7 +41,7 @@ watch: vendor/bin/catpaw src/main.php
 	--spawner="php -dxdebug.mode=debug -dxdebug.start_with_request=yes"
 
 
-start: vendor/bin/catpaw src/main.php
+start: tailwind vendor/bin/catpaw src/main.php
 	php \
 	-dopcache.enable_cli=1 \
 	-dopcache.jit_buffer_size=100M \
@@ -63,7 +63,7 @@ clean:
 	rm app.phar -f
 	rm vendor -fr
 
-build: vendor/bin/catpaw-cli
+build: tailwind vendor/bin/catpaw-cli
 	test -f build.ini || make configure
 	test -d out || mkdir out
 	php \
