@@ -17,7 +17,6 @@ This mode will run your program with [XDebug](https://xdebug.org) enabled.
 > [!NOTE]
 > See [section Debugging with VSCode](#debugging-with-vscode)
 
-
 # Watch Mode
 
 Enter Watch Mode with
@@ -26,7 +25,7 @@ Enter Watch Mode with
 make watch
 ```
 
-This mode will run your program with [XDebug](https://xdebug.org) enabled and 
+This mode will run your program with [XDebug](https://xdebug.org) enabled and
 it will restart your program every time you make a change to your source code.
 
 > [!NOTE]
@@ -58,9 +57,11 @@ make build
 The building process can be configured inside the `build.ini` file.
 
 After building your application, you can simply run it using
+
 ```
 php out/app.phar
 ```
+
 The resulting `.phar` will include the following directories
 
 - `src`
@@ -73,23 +74,25 @@ sure php is installed on whatever machine you're trying to run it on.
 # Debugging with VSCode
 
 Install xdebug
-  ```php
-  apt install php8.3-xdebug
-  ```
+
+```php
+apt install php8.3-xdebug
+```
 
 Configure your `.vscode/launch.json`
-  ```json
-  {
-      "version": "0.2.0",
-      "configurations": [
-          {
-              "name": "Listen",
-              "type": "php",
-              "request": "launch",
-              "port": 9003
-          }
-      ]
-  }
-  ```
+
+```json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Listen",
+      "type": "php",
+      "request": "launch",
+      "port": 9003
+    }
+  ]
+}
+```
 
 Start debugging.
