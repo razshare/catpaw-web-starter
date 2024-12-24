@@ -1,0 +1,16 @@
+{
+  "arrowParens": "avoid",
+  "singleQuote": true,
+  "trailingComma": "all",
+  "printWidth": 80,
+  "semi": false,
+  "useTabs": false,
+  "bracketSpacing": true,
+  "quoteProps": "consistent",
+  "overrides": [
+    {
+      "files": "*.tpl",
+      "options": { "parser": "html" }
+    }
+  ]
+}

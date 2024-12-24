@@ -2,6 +2,12 @@ load:
 	composer update
 	composer dump-autoload -o
 
+bun:
+	curl -fsSL https://bun.sh/install | bash
+
+pretty:
+	bunx prettier --write .
+
 test: vendor/bin/phpunit
 	php \
 	-dxdebug.mode=off \
