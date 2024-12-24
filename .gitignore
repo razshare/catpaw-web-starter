@@ -23,3 +23,5 @@
 /libevent
 /.php-cs-fixer.cache
 /.phpunit.result.cache
+/.compile
+/.cache
