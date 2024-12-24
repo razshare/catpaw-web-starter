@@ -1,14 +1,14 @@
 <?php
-
-use function CatPaw\Core\asFileName;
+use CatPaw\Core\Container;
 use CatPaw\Core\Directory;
 use function CatPaw\Core\env;
 use function CatPaw\Core\error;
-
-use function CatPaw\Core\execute;
+use CatPaw\Core\FileName;
 use CatPaw\Core\None;
+use CatPaw\Core\Process;
 use CatPaw\Core\Result;
 use CatPaw\Web\Interfaces\ServerInterface;
+use Smarty\Smarty;
 
 /**
  * Application entry point.
@@ -16,23 +16,75 @@ use CatPaw\Web\Interfaces\ServerInterface;
  * @return Result<None>
  */
 function main(ServerInterface $server): Result {
+    if ('' === $smartyTemplateDirectory = env('smarty.template')) {
+        return error("Smarty template directory not defined in environment variables (`smarty.template`).");
+    }
+
+    if ('' === $smartyConfigDirectory = env('smarty.config')) {
+        return error("Smarty config directory not defined in environment variables (`smarty.config`).");
+    }
+
+    if ('' === $smartyCompileDirectory = env('smarty.compile')) {
+        return error("Smarty compile directory not defined in environment variables (`smarty.compile`).");
+    }
+
+    if ('' === $smartyCacheDirectory = env('smarty.cache')) {
+        return error("Smarty cache directory not defined in environment variables (`smarty.cache`).");
+    }
+
+    // Using Smarty as a template engine.
+    $smarty = new Smarty;
+    $smarty->setTemplateDir(FileName::create($smartyTemplateDirectory)->absolute());
+    $smarty->setConfigDir(FileName::create($smartyConfigDirectory)->absolute());
+    $smarty->setCompileDir(FileName::create($smartyCompileDirectory)->absolute());
+    $smarty->setCacheDir(FileName::create($smartyCacheDirectory)->absolute());
+
+    $errors = [];
+    $smarty->testInstall($errors);
+    if ($errors) {
+        $errorMessage = '';
+        foreach ($errors as $error) {
+            $errorMessage .= "$error\n";
+        }
+        return error($errorMessage);
+    }
+
+    Container::provide(Smarty::class, $smarty);
+
     // Create assets.
-    Directory::create(asFileName(__DIR__, '../statics/assets')->absolute())->unwrap($error);
+    Directory::create(FileName::create(__DIR__, '../statics/assets')->absolute())->unwrap($error);
     if ($error) {
         return error($error);
     }
 
     // Build tailwind.
-    $input  = asFileName(__DIR__, 'main.css')->absolute();
-    $output = asFileName(__DIR__, '../statics/assets/main.css')->absolute();
-    execute("bunx tailwindcss -i $input -o $output")->unwrap($error);
+    if ('' === $tailwindInput = env('tailwind.input')) {
+        return error('Tailwind input not provided.');
+    }
+
+    if ('' === $tailwindOutput = env('tailwind.output')) {
+        return error('Tailwind output not provided.');
+    }
+
+    $input  = FileName::create($tailwindInput)->absolute();
+    $output = FileName::create($tailwindOutput)->absolute();
+    Process::execute("bunx tailwindcss -i $input -o $output")->unwrap($error);
     if ($error) {
         return error($error);
     }
-    
+
+    // Make sure api and statics are defined.
+    if ('' === $apiLocation = env('api')) {
+        return error('Api location not provided.');
+    }
+
+    if ('' === $staticsLocation = env('statics')) {
+        return error('Statics location not provided.');
+    }
+
     return $server
         ->withInterface(env('interface'))
-        ->withApiLocation(env('apiLocation'))
-        ->withStaticsLocation(env('staticsLocation'))
+        ->withApiLocation(FileName::create($apiLocation)->absolute())
+        ->withStaticsLocation(FileName::create($staticsLocation)->absolute())
         ->start();
 }

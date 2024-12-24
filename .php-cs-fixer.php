@@ -42,6 +42,10 @@ return $config
     ->setFinder(
         PhpCsFixer\Finder::create()
             ->exclude('vendor')
+            ->exclude('node_modules')
+            ->exclude('src/smarty/compile')
+            ->exclude('src/smarty/cache')
+            ->exclude('statics')
             ->in(__DIR__)
     )
 ;
