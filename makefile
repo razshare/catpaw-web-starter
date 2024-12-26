@@ -36,7 +36,6 @@ dev: tailwind vendor/bin/catpaw src/main.php
 watch: vendor/bin/catpaw src/main.php
 	while true;do vendor/bin/catpaw-kwm "make dev" "src"; done
 
-
 start: tailwind vendor/bin/catpaw src/main.php
 	php \
 	-dopcache.enable_cli=1 \
