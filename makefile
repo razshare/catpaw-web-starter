@@ -34,17 +34,7 @@ dev: tailwind vendor/bin/catpaw src/main.php
 	--main=src/main.php
 
 watch: vendor/bin/catpaw src/main.php
-	php \
-	-dxdebug.mode=off \
-	-dxdebug.start_with_request=no \
-	vendor/bin/catpaw \
-	--environment=env.ini \
-	--libraries=src/lib \
-	--main=src/main.php \
-	--resources=src \
-	--watch \
-	--initializer="make tailwind" \
-	--spawner="php -dxdebug.mode=debug -dxdebug.start_with_request=yes"
+	while true;do vendor/bin/catpaw-kwm "make dev" "src"; done
 
 
 start: tailwind vendor/bin/catpaw src/main.php
