@@ -24,6 +24,7 @@
 /libevent
 /.php-cs-fixer.cache
 /.phpunit.result.cache
+/statics
 
 
 # Js
