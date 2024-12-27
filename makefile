@@ -18,11 +18,11 @@ clean:
 	rm out -fr
 	rm statics -fr
 	rm vendor -fr
-	rm src/client/node_modules -fr
-	rm src/client/bun.lockb -f
+	rm node_modules -fr
+	rm bun.lockb -f
 
 load:
-	cd src/client && bun i
+	bun i
 	composer update
 	composer dump-autoload -o
 
@@ -68,7 +68,7 @@ watch: src/server/main.php vendor/bin/catpaw
 	bun run dev & \
 	wait
 
-build-client: src/client/node_modules src/client/vite.config.js
+build-client: node_modules vite.config.js
 	bun i && \
 	bun run lint && \
 	bun run build
