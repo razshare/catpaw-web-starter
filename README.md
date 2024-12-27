@@ -21,10 +21,10 @@ make load
 
 # Watch Mode
 
-Enter Development Mode with
+Enter Watch Mode with
 
 ```bash
-make dev
+make watch
 ```
 
 This mode will run the Vite server and your server with [XDebug](https://xdebug.org) enabled.\
@@ -36,6 +36,18 @@ Each time your make any change to your server source code, the server will resta
 
 > [!NOTE]
 > See [section Debugging with VSCode](#debugging-with-vscode)
+
+# Development Mode
+
+Enter Watch Mode with
+
+```bash
+make dev
+```
+
+This mode will build the Svelte application and run your server with [XDebug](https://xdebug.org) enabled.\
+Unlike [Watch Mode](#watch-mode), your server will not restart when you make changes to your code.\
+This mode is useful for quick debugging.
 
 # Production Mode
 
