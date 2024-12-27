@@ -1,7 +1,24 @@
+<script module>
+  import { http } from '$lib/scripts/http'
+
+  let [value, error] = await http.get('/api/counter')
+
+  if (error) {
+    console.error(error)
+    value = 0
+  }
+
+  let count = $state(value)
+</script>
+
 <script>
-  let count = $state(0)
-  function increment() {
-    count += 1
+  async function increment() {
+    const [value, error] = await http.get('/api/counter/increase')
+    if (error) {
+      console.error(error)
+      return
+    }
+    count = value
   }
 </script>
 

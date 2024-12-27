@@ -42,7 +42,18 @@ start: build-client vendor/bin/catpaw src/server/main.php
 	--main=src/server/main.php
 
 dev: src/server/main.php vendor/bin/catpaw
-	./devw
+	php \
+	-dxdebug.mode=off \
+	-dxdebug.start_with_request=no \
+	vendor/bin/catpaw \
+	--environment=env.ini \
+	--libraries=src/server/lib \
+	--main=src/server/main.php \
+	--resources=src/server \
+	--watch \
+	--spawner="php -dxdebug.mode=debug -dxdebug.start_with_request=yes" & \
+	bun run dev & \
+	wait
 
 build-client: src/client/node_modules src/client/vite.config.js
 	bun i && \

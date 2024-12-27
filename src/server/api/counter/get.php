@@ -1,3 +1,5 @@
 <?php
 use CatPaw\Web\Interfaces\SessionInterface;
-return static fn (SessionInterface $session) => $session->ref('counter', 0);
+return static function(SessionInterface $session) {
+    return $session->ref('counter', 0);
+};

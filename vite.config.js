@@ -1,14 +1,19 @@
 import { defineConfig } from 'vite'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
+import path from 'path'
+import { fileURLToPath } from 'url'
+const file = fileURLToPath(import.meta.url)
+const dir = path.dirname(file).replace(/\\+/, '/')
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [svelte()],
   resolve: {
     alias: {
-      $lib: './src/client/lib',
+      $lib: `${path.resolve(dir, 'src/client/lib')}`,
     },
   },
+  publicDir: 'assets',
   build: {
     sourcemap: false,
     outDir: 'statics',
@@ -26,11 +31,8 @@ export default defineConfig({
     host: '::',
     proxy: {
       '^/api/.*': {
-        target: 'http://127.0.0.1:5757',
+        target: 'http://localhost:5757',
         changeOrigin: false,
-        rewrite: function replace(path) {
-          return path.replace(/^\/api/, '')
-        },
         secure: false,
         ws: true,
       },
