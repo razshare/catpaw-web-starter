@@ -14,7 +14,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "App\\": "src/lib/"
+      "App\\": "src/server/lib/"
     }
   },
   "minimum-stability": "stable",

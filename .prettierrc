@@ -7,10 +7,5 @@
   "useTabs": false,
   "bracketSpacing": true,
   "quoteProps": "consistent",
-  "overrides": [
-    {
-      "files": "*.tpl",
-      "options": { "parser": "html" }
-    }
-  ]
+	"plugins": ["prettier-plugin-svelte"]
 }

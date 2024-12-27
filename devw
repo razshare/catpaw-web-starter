@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+./devkwm &
+cd src/client && bun run dev &
+wait

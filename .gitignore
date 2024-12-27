@@ -1,5 +1,6 @@
-.DS_Store
+# Php
 *.log
+*.DS_Store
 *.exe
 *.pem
 *.phar
@@ -23,5 +24,7 @@
 /libevent
 /.php-cs-fixer.cache
 /.phpunit.result.cache
-/.compile
-/.cache
+
+
+# Js
+/node_modules

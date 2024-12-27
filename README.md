@@ -1,10 +1,25 @@
 # Catpaw Starter
 
-You will need to [install Bun](https://bun.sh/).
+First off, configure your project.
 
-You can run your program in one of three modes.
+```bash
+make configure
+```
 
-# Development Mode
+> [!NOTE]
+> If you don't have [Bun](https://bun.sh) installed in your path, this step will install it for you.
+
+Then load your dependencies.
+
+```bash
+make load
+```
+
+> [!NOTE]
+> You can run `make clean` at any time in order to clean created directories, downloaded dependencies and so on.\
+> Running `make clean` will __not__ uninstall [Bun](https://bun.sh).
+
+# Watch Mode
 
 Enter Development Mode with
 
@@ -12,28 +27,15 @@ Enter Development Mode with
 make dev
 ```
 
-This mode will run your program with [XDebug](https://xdebug.org) enabled.
+This mode will run the Vite server and your server with [XDebug](https://xdebug.org) enabled.\
+Each time your make any change to your server source code, the server will restart automatically.
+
+> [!NOTE]
+> By default "server source code" means the "src/server" directory.\
+> You can change this configuration in your [devkwm file](./devkwm).
 
 > [!NOTE]
 > See [section Debugging with VSCode](#debugging-with-vscode)
-
-# Watch Mode
-
-Enter Watch Mode with
-
-```bash
-make watch
-```
-
-This mode will run your program with [XDebug](https://xdebug.org) enabled and
-it will restart your program every time you make a change to your source code.
-
-> [!NOTE]
-> See [section Debugging with VSCode](#debugging-with-vscode)
-
-> [!NOTE]
-> By default "source code" means the "src" directory.\
-> You can change this configuration in your [makefile](./makefile), see section `watch`, parameter `resources`.
 
 # Production Mode
 
@@ -43,8 +45,7 @@ Enter Production Mode with
 make start
 ```
 
-It's just as it sounds, run your program directly.\
-No debuggers, not extra overhead.
+This will build your client bundle and run your server without any debuggers or any other extra overhead.
 
 # Build
 
@@ -64,8 +65,9 @@ php out/app.phar
 
 The resulting `.phar` will include the following directories
 
-- `src`
+- `src/server`
 - `vendor`
+- `statics`
 - `.build-cache` (created at build time)
 
 It's a portable bundle, you just need to make

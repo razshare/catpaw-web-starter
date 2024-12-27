@@ -1,12 +1,30 @@
+configure:
+	which bun || (curl -fsSL https://bun.sh/install | bash)
+	chmod +x ./devw
+	chmod +x ./devkwm
+	@printf "\
+	name = out/app\n\
+	main = src/server/main.php\n\
+	libraries = src/server/lib\n\
+	environment = env.ini\n\
+	match = \"/(^\.\/(\.build-cache|src\/server|vendor|statics)\/.*)|(^\.\/(\.env|env\.ini|env\.yml))/\"\n\
+	" > build.ini && printf "Build configuration file restored.\n"
+
+clean:
+	rm build.ini -f
+	rm composer.lock -f
+	rm .php-cs-fixer.cache -f
+	rm .phpunit.result.cache -f
+	rm out -fr
+	rm statics -fr
+	rm vendor -fr
+	rm src/client/node_modules -fr
+	rm src/client/bun.lockb -f
+
 load:
+	cd src/client && bun i
 	composer update
 	composer dump-autoload -o
-
-bun:
-	curl -fsSL https://bun.sh/install | bash
-
-pretty:
-	bunx prettier --write .
 
 test: vendor/bin/phpunit
 	php \
@@ -14,51 +32,24 @@ test: vendor/bin/phpunit
 	-dxdebug.start_with_request=no \
 	vendor/bin/phpunit tests
 
-tailwind:
-	mkdir statics/assets -p
-	bunx tailwindcss -i src/main.css -o statics/assets/main.css
-
-fix: vendor/bin/php-cs-fixer
-	php \
-	-dxdebug.mode=off \
-	-dxdebug.start_with_request=no \
-	vendor/bin/php-cs-fixer fix .
-
-dev: tailwind vendor/bin/catpaw src/main.php
-	php \
-	-dxdebug.mode=debug \
-	-dxdebug.start_with_request=yes \
-	vendor/bin/catpaw \
-	--environment=env.ini \
-	--libraries=src/lib \
-	--main=src/main.php
-
-watch: vendor/bin/catpaw src/main.php
-	while true;do vendor/bin/catpaw-kwm "make dev" "src"; done
-
-start: tailwind vendor/bin/catpaw src/main.php
+start: build-client vendor/bin/catpaw src/server/main.php
 	php \
 	-dopcache.enable_cli=1 \
 	-dopcache.jit_buffer_size=100M \
 	vendor/bin/catpaw \
 	--environment=env.ini \
-	--libraries=src/lib \
-	--main=src/main.php
+	--libraries=src/server/lib \
+	--main=src/server/main.php
 
-configure:
-	@printf "\
-	name = out/app\n\
-	main = src/main.php\n\
-	libraries = src/lib\n\
-	environment = env.ini\n\
-	match = \"/(^\.\/(\.build-cache|src|vendor|statics)\/.*)|(^\.\/(\.env|env\.ini|env\.yml))/\"\n\
-	" > build.ini && printf "Build configuration file restored.\n"
+dev: src/server/main.php vendor/bin/catpaw
+	./devw
 
-clean:
-	rm app.phar -f
-	rm vendor -fr
+build-client: src/client/node_modules src/client/vite.config.js
+	bun i && \
+	bun run lint && \
+	bun run build
 
-build: tailwind vendor/bin/catpaw-cli
+build-server: vendor vendor/bin/catpaw-cli src/server/main.php
 	test -f build.ini || make configure
 	test -d out || mkdir out
 	php \
@@ -68,3 +59,6 @@ build: tailwind vendor/bin/catpaw-cli
 	vendor/bin/catpaw-cli \
 	--build \
 	--optimize
+
+build:
+	make build-client && make build-server
