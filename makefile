@@ -1,7 +1,5 @@
 configure:
 	which bun || (curl -fsSL https://bun.sh/install | bash)
-	chmod +x ./devw
-	chmod +x ./devkwm
 	@printf "\
 	name = out/app\n\
 	main = src/server/main.php\n\
