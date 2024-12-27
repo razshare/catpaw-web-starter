@@ -34,6 +34,8 @@ test: vendor/bin/phpunit
 
 start: build-client vendor/bin/catpaw src/server/main.php
 	php \
+	-dxdebug.mode=off \
+	-dxdebug.start_with_request=no \
 	-dopcache.enable_cli=1 \
 	-dopcache.jit_buffer_size=100M \
 	vendor/bin/catpaw \
@@ -41,7 +43,18 @@ start: build-client vendor/bin/catpaw src/server/main.php
 	--libraries=src/server/lib \
 	--main=src/server/main.php
 
-dev: src/server/main.php vendor/bin/catpaw
+dev: build-client vendor/bin/catpaw src/server/main.php
+	php \
+	-dxdebug.mode=debug \
+	-dxdebug.start_with_request=yes \
+	-dopcache.enable_cli=1 \
+	-dopcache.jit_buffer_size=100M \
+	vendor/bin/catpaw \
+	--environment=env.ini \
+	--libraries=src/server/lib \
+	--main=src/server/main.php
+
+watch: src/server/main.php vendor/bin/catpaw
 	php \
 	-dxdebug.mode=off \
 	-dxdebug.start_with_request=no \
