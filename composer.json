@@ -24,7 +24,7 @@
     "ext-pcntl": "*",
     "ext-openssl": "*",
     "ext-zlib": "*",
-    "catpaw/catpaw": "^4.2",
+    "catpaw/catpaw": "^4.3",
     "smarty/smarty": "^5.4"
   },
   "autoload-dev": {
