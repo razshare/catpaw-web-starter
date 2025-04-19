@@ -4,14 +4,7 @@
   "description": "A php CatPaw starter template",
   "homepage": "https://github.com/tncrazvan/catpaw-web-starter",
   "license": "MIT",
-  "authors": [
-    {
-      "name": "Razvan Tanase",
-      "email": "tangent.jotey@gmail.com",
-      "homepage": "https://github.com/tncrazvan",
-      "role": "Developer"
-    }
-  ],
+  "authors": [],
   "autoload": {
     "psr-4": {
       "App\\": "src/server/lib/"
