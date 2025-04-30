@@ -32,14 +32,14 @@ Each time your make any change to your server source code, the server will resta
 
 > [!NOTE]
 > By default "server source code" means the "src/server" directory.\
-> You can change this configuration in your [devkwm file](./devkwm).
+> You can change this configuration in your [make file](./makefile).
 
 > [!NOTE]
 > See [section Debugging with VSCode](#debugging-with-vscode)
 
 # Development Mode
 
-Enter Watch Mode with
+Enter Development Mode with
 
 ```bash
 make dev
