@@ -2,7 +2,6 @@
 use function CatPaw\Core\env;
 use function CatPaw\Core\error;
 use CatPaw\Core\FileName;
-
 use CatPaw\Core\Interfaces\EnvironmentInterface;
 use CatPaw\Core\None;
 use CatPaw\Core\Result;
