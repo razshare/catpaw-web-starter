@@ -5,6 +5,23 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Inspect",
+      "type": "php",
+      "request": "launch",
+      "program": "${workspaceRoot}/vendor/bin/catpaw",
+      "args": [
+        "--environment=env.in",
+        "--libraries=src/lib",
+        "--main=src/server/main.php"
+      ],
+      "cwd": "${workspaceRoot}",
+      "runtimeArgs": ["-dxdebug.mode=debug", "-dxdebug.start_with_request=yes"],
+      "env": {
+        "XDEBUG_MODE": "debug,develop",
+        "XDEBUG_CONFIG": "client_port=${port}"
+      }
+    },
+    {
       "name": "Listen",
       "type": "php",
       "request": "launch",

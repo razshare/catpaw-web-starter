@@ -22,6 +22,9 @@ clean:
 	rm node_modules -fr
 	rm bun.lockb -f
 
+update:
+	composer update
+	
 test: vendor/bin/phpunit
 	php \
 	-dxdebug.mode=off \
@@ -39,7 +42,7 @@ start: build-client vendor/bin/catpaw src/server/main.php
 	--libraries=src/server/lib \
 	--main=src/server/main.php
 
-dev: build-client vendor/bin/catpaw src/server/main.php
+inspect: build-client vendor/bin/catpaw src/server/main.php
 	php \
 	-dxdebug.mode=debug \
 	-dxdebug.start_with_request=yes \
@@ -50,7 +53,7 @@ dev: build-client vendor/bin/catpaw src/server/main.php
 	--libraries=src/server/lib \
 	--main=src/server/main.php
 
-watch: src/server/main.php vendor/bin/catpaw
+dev: src/server/main.php vendor/bin/catpaw
 	php \
 	-dxdebug.mode=off \
 	-dxdebug.start_with_request=no \
