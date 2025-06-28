@@ -7,8 +7,8 @@ configure:
 	environment = env.ini\n\
 	match = \"/(^\.\/(\.build-cache|src\/server|vendor|statics)\/.*)|(^\.\/(\.env|env\.ini|env\.yml))/\"\n\
 	" > build.ini && printf "Build configuration file restored.\n"
-	bun i
-	composer update
+	bun install
+	composer install
 	composer dump-autoload -o
 
 clean:
@@ -22,8 +22,15 @@ clean:
 	rm node_modules -fr
 	rm bun.lockb -f
 
+install:
+	composer install
+	composer dump-autoload -o
+	bun install
+
 update:
 	composer update
+	composer dump-autoload -o
+	bun update
 	
 test: vendor/bin/phpunit
 	php \

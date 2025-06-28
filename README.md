@@ -1,4 +1,4 @@
-# Catpaw Starter
+# Catpaw Web Starter
 
 First off, configure your project.
 
@@ -6,14 +6,11 @@ First off, configure your project.
 make configure
 ```
 
+This will install dependencies for Php and JavaScript and it will generate a default `build.ini`, 
+which is needed for building the project into a standalone `.phar`. See section [build](#build).
+
 > [!NOTE]
-> If you don't have [Bun](https://bun.sh) installed in your path, this step will install it for you.
-
-Then load your dependencies.
-
-```bash
-make load
-```
+> If you don't have [Bun](https://bun.sh) in your path, this step will install it for you.
 
 > [!NOTE]
 > You can run `make clean` at any time in order to clean created directories, downloaded dependencies and so on.\
