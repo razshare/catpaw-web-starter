@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7b62971120ed743822cadf16f05d2927",
+    "content-hash": "52c0892fd9dc8ed6f02a6022df74af16",
     "packages": [
         {
             "name": "amphp/amp",
@@ -1665,16 +1665,16 @@
         },
         {
             "name": "catpaw/catpaw",
-            "version": "4.3.5",
+            "version": "4.3.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/razshare/catpaw.git",
-                "reference": "db7fdc85dca8f7a459d9d0e98147d6fae22abc53"
+                "reference": "234695a4129221be4f06042d1c162100cbb8360d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/razshare/catpaw/zipball/db7fdc85dca8f7a459d9d0e98147d6fae22abc53",
-                "reference": "db7fdc85dca8f7a459d9d0e98147d6fae22abc53",
+                "url": "https://api.github.com/repos/razshare/catpaw/zipball/234695a4129221be4f06042d1c162100cbb8360d",
+                "reference": "234695a4129221be4f06042d1c162100cbb8360d",
                 "shasum": ""
             },
             "require": {
@@ -1765,9 +1765,9 @@
             ],
             "support": {
                 "issues": "https://github.com/razshare/catpaw/issues",
-                "source": "https://github.com/razshare/catpaw/tree/4.3.5"
+                "source": "https://github.com/razshare/catpaw/tree/4.3.7"
             },
-            "time": "2025-06-28T11:37:22+00:00"
+            "time": "2025-06-28T14:30:29+00:00"
         },
         {
             "name": "daverandom/libdns",
