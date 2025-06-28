@@ -1,19 +1,16 @@
 # Catpaw Web Starter
 
-First off, configure your project.
+Install dependencies with
 
 ```bash
-make configure
+make install
 ```
-
-This will install dependencies for Php and JavaScript and it will generate a default `build.ini`, 
-which is needed for building the project into a standalone `.phar`. See section [build](#build).
 
 > [!NOTE]
 > If you don't have [Bun](https://bun.sh) in your path, this step will install it for you.
 
 > [!NOTE]
-> You can run `make clean` at any time in order to clean created directories, downloaded dependencies and so on.\
+> You can run `make clean` at any time in order to remove created directories and files.\
 > Running `make clean` will __not__ uninstall [Bun](https://bun.sh).
 
 # Watch Mode
@@ -25,7 +22,7 @@ make watch
 ```
 
 This mode will run the Vite server and your server with [XDebug](https://xdebug.org) enabled.\
-Each time your make any change to your server source code, the server will restart automatically.
+Each time your make any change to your **server source code**, the server will restart automatically.
 
 > [!NOTE]
 > By default "server source code" means the "src/server" directory.\
