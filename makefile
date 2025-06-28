@@ -42,7 +42,7 @@ start: vendor/bin/catpaw src/server/main.php
 build: vendor/bin/catpaw-cli
 	mkdir out -p
 	test -f build.ini || make configure
-	bunx --bun vite build --watch --outDir="statics" & \
+	bunx --bun vite build --watch --outDir="statics" && \
 	php -dxdebug.mode=off -dxdebug.start_with_request=no \
 	-dphar.readonly=0 \
 	vendor/bin/catpaw-cli \
