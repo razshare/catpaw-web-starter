@@ -5,9 +5,18 @@ use CatPaw\Core\FileName;
 use CatPaw\Core\Interfaces\EnvironmentInterface;
 use CatPaw\Core\None;
 use CatPaw\Core\Result;
+use CatPaw\Web\Interfaces\ResponseModifierInterface;
 use CatPaw\Web\Interfaces\RouterInterface;
 use CatPaw\Web\Interfaces\ServerInterface;
 use function CatPaw\Web\redirect;
+
+/**
+ * Redirects to /api/Counter/increase
+ * @return ResponseModifierInterface
+ */
+function redirectToIncrease():ResponseModifierInterface {
+    return redirect("/api/counter/increase");
+}
 
 /**
  * Application entry point.
@@ -24,7 +33,7 @@ function main(
         return error($error);
     }
 
-    $router->addHandler("GET", "/", fn () => redirect("/api/counter/increase"))->unwrap($error);
+    $router->addHandler("GET", "/", redirectToIncrease(...))->unwrap($error);
     if ($error) {
         return error($error);
     }
