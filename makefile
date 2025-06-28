@@ -1,15 +1,14 @@
-configure:
-	which bun || (curl -fsSL https://bun.sh/install | bash)
-	@printf "\
-	name = out/app\n\
-	main = src/server/main.php\n\
-	libraries = src/server/lib\n\
-	environment = env.ini\n\
-	match = \"/(^\.\/(\.build-cache|src\/server|vendor|statics)\/.*)|(^\.\/(\.env|env\.ini|env\.yml))/\"\n\
-	" > build.ini && printf "Build configuration file restored.\n"
-	bun install
+install:
 	composer install
 	composer dump-autoload -o
+	which bun || (curl -fsSL https://bun.sh/install | bash)
+	bun install
+
+update:
+	composer update
+	composer dump-autoload -o
+	which bun || (curl -fsSL https://bun.sh/install | bash)
+	bun update
 
 clean:
 	rm build.ini -f
@@ -22,21 +21,15 @@ clean:
 	rm node_modules -fr
 	rm bun.lockb -f
 
-install:
-	composer install
-	composer dump-autoload -o
-	bun install
-
-update:
-	composer update
-	composer dump-autoload -o
-	bun update
-	
-test: vendor/bin/phpunit
-	php \
-	-dxdebug.mode=off \
-	-dxdebug.start_with_request=no \
-	vendor/bin/phpunit tests
+configure:
+	@printf "\
+	name = out/app\n\
+	main = src/server/main.php\n\
+	libraries = src/server/lib\n\
+	environment = env.ini\n\
+	match = \"/(^\.\/(\.build-cache|src\/server|vendor|statics)\/.*)|(^\.\/(\.env|env\.ini|env\.yml))/\"\n\
+	" > build.ini && printf "Build configuration file restored.\n"
+	make install
 
 start: build-client vendor/bin/catpaw src/server/main.php
 	php \
@@ -92,3 +85,9 @@ build-server: vendor vendor/bin/catpaw-cli src/server/main.php
 
 build:
 	make build-client && make build-server
+
+test: vendor/bin/phpunit
+	php \
+	-dxdebug.mode=off \
+	-dxdebug.start_with_request=no \
+	vendor/bin/phpunit tests
