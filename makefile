@@ -2,92 +2,87 @@ install:
 	composer install
 	composer dump-autoload -o
 	which bun || (curl -fsSL https://bun.sh/install | bash)
-	bun install
+	bun --bun install
 
 update:
 	composer update
 	composer dump-autoload -o
 	which bun || (curl -fsSL https://bun.sh/install | bash)
-	bun update
+	bun --bun install
 
-clean:
-	rm build.ini -f
-	rm composer.lock -f
-	rm .php-cs-fixer.cache -f
-	rm .phpunit.result.cache -f
-	rm out -fr
-	rm statics -fr
-	rm vendor -fr
-	rm node_modules -fr
-	rm bun.lockb -f
-
-configure:
-	@printf "\
-	name = out/app\n\
-	main = src/server/main.php\n\
-	libraries = src/server/lib\n\
-	environment = env.ini\n\
-	match = \"/(^\.\/(\.build-cache|src\/server|vendor|statics)\/.*)|(^\.\/(\.env|env\.ini|env\.yml))/\"\n\
-	" > build.ini && printf "Build configuration file restored.\n"
-	make install
-
-start: build-client vendor/bin/catpaw src/server/main.php
-	php \
-	-dxdebug.mode=off \
-	-dxdebug.start_with_request=no \
-	-dopcache.enable_cli=1 \
-	-dopcache.jit_buffer_size=100M \
+dev: vendor/bin/catpaw src/server/main.php
+	bunx --bun vite build
+	php -dxdebug.mode=debug -dxdebug.start_with_request=yes \
 	vendor/bin/catpaw \
 	--environment=env.ini \
-	--libraries=src/server/lib \
+	--libraries=src/lib \
 	--main=src/server/main.php
 
-dev: build-client vendor/bin/catpaw src/server/main.php
-	php \
-	-dxdebug.mode=debug \
-	-dxdebug.start_with_request=yes \
-	-dopcache.enable_cli=1 \
-	-dopcache.jit_buffer_size=100M \
+watch: vendor/bin/catpaw src/server/main.php
+	bunx --bun vite & \
+	php -dxdebug.mode=off -dxdebug.start_with_request=no \
 	vendor/bin/catpaw \
 	--environment=env.ini \
-	--libraries=src/server/lib \
-	--main=src/server/main.php
-
-watch: src/server/main.php vendor/bin/catpaw
-	php \
-	-dxdebug.mode=off \
-	-dxdebug.start_with_request=no \
-	vendor/bin/catpaw \
-	--environment=env.ini \
-	--libraries=src/server/lib \
+	--libraries=src/lib \
 	--main=src/server/main.php \
 	--resources=src/server \
 	--watch \
 	--spawner="php -dxdebug.mode=debug -dxdebug.start_with_request=yes" & \
-	bun run dev & \
 	wait
 
-build-client: node_modules vite.config.js
-	bun i && \
-	bun run lint && \
-	bun run build
 
-build-server: vendor vendor/bin/catpaw-cli src/server/main.php
+start: vendor/bin/catpaw src/server/main.php
+	bunx --bun vite build
+	php -dxdebug.mode=off -dxdebug.start_with_request=no \
+	vendor/bin/catpaw \
+	--environment=env.ini \
+	--libraries=src/lib \
+	--main=src/server/main.php
+
+build: vendor/bin/catpaw-cli
+	mkdir out -p
 	test -f build.ini || make configure
-	test -d out || mkdir out
-	php \
-	-dxdebug.mode=off \
-	-dxdebug.start_with_request=no \
+	bunx --bun vite build --watch --outDir="statics" & \
+	php -dxdebug.mode=off -dxdebug.start_with_request=no \
 	-dphar.readonly=0 \
 	vendor/bin/catpaw-cli \
 	--build \
 	--optimize
 
-build:
-	make build-client && make build-server
+clean:
+	rm app.phar -f
+	rm vendor -fr
+
+configure:
+	@printf "\
+	name = out/catpaw\n\
+	main = src/server/main.php\n\
+	libraries = src/lib\n\
+	environment = env.ini\n\
+	match = \"/(^\.\/(\.build-cache|src|vendor|bin)\/.*)|(^\.\/(\.env|env\.ini|env\.yml))/\"\n\
+	" > build.ini && printf "Build configuration file restored.\n"
+	make install
+
+fix: vendor/bin/php-cs-fixer
+	php -dxdebug.mode=off -dxdebug.start_with_request=no vendor/bin/php-cs-fixer fix src/server && \
+	php -dxdebug.mode=off -dxdebug.start_with_request=no vendor/bin/php-cs-fixer fix tests/server && \
+	bunx --bun eslint --fix src/client && \
+	bunx --bun eslint --fix tests/client
+
+check: vendor/bin/php-cs-fixer
+	php -dxdebug.mode=off -dxdebug.start_with_request=no vendor/bin/php-cs-fixer check src/server && \
+	php -dxdebug.mode=off -dxdebug.start_with_request=no vendor/bin/php-cs-fixer check tests/server && \
+	bunx --bun eslint src/client && \
+	bunx --bun eslint tests/client
 
 test: vendor/bin/phpunit
-	php \
-	-dxdebug.mode=off \
-	-dxdebug.start_with_request=no \
-	vendor/bin/phpunit tests
+	php -dxdebug.mode=off -dxdebug.start_with_request=no vendor/bin/phpunit tests/server && \
+	bunx --bun vitest tests/client
+
+hooks: vendor/bin/catpaw src/server/main.php
+	php -dxdebug.mode=debug -dxdebug.start_with_request=yes \
+	vendor/bin/catpaw \
+	--environment=env.ini \
+	--libraries=src/lib \
+	--main=src/server/main.php \
+	--install-pre-commit="make test"

@@ -43,6 +43,9 @@
   "include": [
     "src/client/**/*.d.ts",
     "src/client/**/*.js",
-    "src/client/**/*.svelte"
+    "src/client/**/*.svelte",
+    "tests/client/**/*.d.ts",
+    "tests/client/**/*.js",
+    "tests/client/**/*.svelte"
   ]
 }

@@ -1,3 +1,14 @@
 {
-  "recommendations": ["svelte.svelte-vscode"]
+  "recommendations": [
+    "faelv.composer-companion",
+    "SanderRonde.phpstan-vscode",
+    "xdebug.php-debug",
+    "renandelmonico.vscode-php-test-explorer",
+    "bmewburn.vscode-intelephense-client",
+    "Chanzhaoyu.svelte-5-snippets",
+    "svelte.svelte-vscode",
+    "oven.bun-vscode",
+    "dbaeumer.vscode-eslint",
+    "ms-vscode.makefile-tools"
+  ]
 }
