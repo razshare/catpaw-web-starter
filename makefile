@@ -77,7 +77,7 @@ check: vendor/bin/php-cs-fixer
 
 test: vendor/bin/phpunit
 	php -dxdebug.mode=off -dxdebug.start_with_request=no vendor/bin/phpunit tests/server && \
-	bunx --bun vitest tests/client
+	bunx vitest --run tests/client
 
 hooks: vendor/bin/catpaw src/server/main.php
 	php -dxdebug.mode=debug -dxdebug.start_with_request=yes \
