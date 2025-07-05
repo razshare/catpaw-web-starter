@@ -80,9 +80,5 @@ test: vendor/bin/phpunit
 	bunx vitest --run tests/client
 
 hooks: vendor/bin/catpaw src/server/main.php
-	php -dxdebug.mode=debug -dxdebug.start_with_request=yes \
-	vendor/bin/catpaw \
-	--environment=env.ini \
-	--libraries=src/lib \
-	--main=src/server/main.php \
-	--install-pre-commit="make test"
+	php -dxdebug.mode=off -dxdebug.start_with_request=no \
+	vendor/bin/catpaw-cli --install-pre-commit="make test"
