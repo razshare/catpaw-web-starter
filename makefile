@@ -11,25 +11,28 @@ update:
 	bun --bun install
 
 dev: vendor/bin/catpaw src/server/main.php
-	bunx --bun vite build
+	bunx --bun vite build --outDir statics --emptyOutDir true
 	php -dxdebug.mode=debug -dxdebug.start_with_request=yes \
 	vendor/bin/catpaw \
 	--environment=env.ini \
-	--libraries=src/lib \
+	--libraries=src/server/lib \
 	--main=src/server/main.php
 
 watch: vendor/bin/catpaw src/server/main.php
-	bunx --bun vite & \
-	php -dxdebug.mode=off -dxdebug.start_with_request=no \
+	bunx --bun vite build --outDir statics --emptyOutDir true --watch &
+	while true; do \
+	(inotifywait \
+	-e modify,create,delete_self,delete,move_self,moved_from,moved_to \
+	-r -P --format '%e' src/server | ( \
+	php -dxdebug.mode=debug -dxdebug.start_with_request=yes \
 	vendor/bin/catpaw \
 	--environment=env.ini \
-	--libraries=src/lib \
+	--libraries=src/server/lib \
 	--main=src/server/main.php \
-	--resources=src/server \
-	--watch \
-	--spawner="php -dxdebug.mode=debug -dxdebug.start_with_request=yes" & \
+	--die-on-stdin \
+	)); \
+	done & \
 	wait
-
 
 start: vendor/bin/catpaw src/server/main.php
 	bunx --bun vite build
