@@ -19,19 +19,16 @@ dev: vendor/bin/catpaw src/server/main.php
 	--main=src/server/main.php
 
 watch: vendor/bin/catpaw src/server/main.php
-	bunx --bun vite build --outDir statics --emptyOutDir true --watch &
-	while true; do \
-	(inotifywait \
+	bunx --bun vite build --outDir statics --emptyOutDir true --watch & \
+	inotifywait \
 	-e modify,create,delete_self,delete,move_self,moved_from,moved_to \
-	-r -P --format '%e' src/server | ( \
+	-r -m -P --format '%e' src/server | \
 	php -dxdebug.mode=debug -dxdebug.start_with_request=yes \
 	vendor/bin/catpaw \
 	--environment=env.ini \
 	--libraries=src/server/lib \
 	--main=src/server/main.php \
-	--die-on-stdin \
-	)); \
-	done & \
+	--spawner="php -dxdebug.mode=debug -dxdebug.start_with_request=yes" & \
 	wait
 
 start: vendor/bin/catpaw src/server/main.php
