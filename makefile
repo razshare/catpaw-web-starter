@@ -23,12 +23,13 @@ watch: vendor/bin/catpaw src/server/main.php
 	inotifywait \
 	-e modify,create,delete_self,delete,move_self,moved_from,moved_to \
 	-r -m -P --format '%e' src/server | \
-	php -dxdebug.mode=debug -dxdebug.start_with_request=yes \
+	php -dxdebug.mode=off -dxdebug.start_with_request=no \
 	vendor/bin/catpaw \
 	--environment=env.ini \
 	--libraries=src/server/lib \
 	--main=src/server/main.php \
-	--spawner="php -dxdebug.mode=debug -dxdebug.start_with_request=yes" & \
+	--spawner="php -dxdebug.mode=debug -dxdebug.start_with_request=yes" \
+	--wait & \
 	wait
 
 start: vendor/bin/catpaw src/server/main.php

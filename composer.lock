@@ -1665,16 +1665,16 @@
         },
         {
             "name": "catpaw/catpaw",
-            "version": "4.4.2",
+            "version": "4.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/razshare/catpaw.git",
-                "reference": "aec6532ba9f5ceaf1ff6ad6626fd05b80db1c7b6"
+                "reference": "e28f4e2c425699aa727a86ec07aeb2aa41ba7bd0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/razshare/catpaw/zipball/aec6532ba9f5ceaf1ff6ad6626fd05b80db1c7b6",
-                "reference": "aec6532ba9f5ceaf1ff6ad6626fd05b80db1c7b6",
+                "url": "https://api.github.com/repos/razshare/catpaw/zipball/e28f4e2c425699aa727a86ec07aeb2aa41ba7bd0",
+                "reference": "e28f4e2c425699aa727a86ec07aeb2aa41ba7bd0",
                 "shasum": ""
             },
             "require": {
@@ -1765,9 +1765,9 @@
             ],
             "support": {
                 "issues": "https://github.com/razshare/catpaw/issues",
-                "source": "https://github.com/razshare/catpaw/tree/4.4.2"
+                "source": "https://github.com/razshare/catpaw/tree/4.4.4"
             },
-            "time": "2025-07-05T19:04:20+00:00"
+            "time": "2025-07-05T20:55:44+00:00"
         },
         {
             "name": "daverandom/libdns",
