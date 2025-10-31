@@ -11,14 +11,6 @@ update:
 	bun --bun install
 
 dev: vendor/bin/catpaw src/server/main.php
-	bunx --bun vite build --outDir statics --emptyOutDir true
-	php -dxdebug.mode=debug -dxdebug.start_with_request=yes \
-	vendor/bin/catpaw \
-	--environment=env.ini \
-	--libraries=src/server/lib \
-	--main=src/server/main.php
-
-watch: vendor/bin/catpaw src/server/main.php
 	bunx --bun vite build --outDir statics --emptyOutDir true --watch & \
 	inotifywait \
 	-e modify,create,delete_self,delete,move_self,moved_from,moved_to \
@@ -31,6 +23,14 @@ watch: vendor/bin/catpaw src/server/main.php
 	--spawner="php -dxdebug.mode=debug -dxdebug.start_with_request=yes" \
 	--wait & \
 	wait
+
+start.debug: vendor/bin/catpaw src/server/main.php
+	bunx --bun vite build --outDir statics --emptyOutDir true
+	php -dxdebug.mode=debug -dxdebug.start_with_request=yes \
+	vendor/bin/catpaw \
+	--environment=env.ini \
+	--libraries=src/server/lib \
+	--main=src/server/main.php
 
 start: vendor/bin/catpaw src/server/main.php
 	bunx --bun vite build
@@ -71,6 +71,8 @@ fix: vendor/bin/php-cs-fixer
 	bunx --bun eslint --fix tests/client
 
 check: vendor/bin/php-cs-fixer
+	php -dxdebug.mode=off -dxdebug.start_with_request=no vendor/bin/phpstan analyse --error-format=table src && \
+	php -dxdebug.mode=off -dxdebug.start_with_request=no vendor/bin/phpstan analyse --error-format=table tests && \
 	php -dxdebug.mode=off -dxdebug.start_with_request=no vendor/bin/php-cs-fixer check src/server && \
 	php -dxdebug.mode=off -dxdebug.start_with_request=no vendor/bin/php-cs-fixer check tests/server && \
 	bunx --bun eslint src/client && \
